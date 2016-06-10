@@ -10,4 +10,10 @@
 
 @interface Configuration : NSObject
 
+@property (nonatomic, strong) NSArray *tabbarItems;
+@property (nonatomic, strong) NSArray *navigationItems;
+@property (nonatomic, strong) NSArray *navigationViews;
+
++ (instancetype)sharedInstance;
+
 @end

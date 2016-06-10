@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavigationCollectionVC.h"
 
-@interface NavigationVC : UIView
+@interface NavigationVC : UIViewController
+
+@property (nonatomic, strong) NavigationCollectionVC *navCollectionVC;
+
+- (instancetype) init;
 
 @end

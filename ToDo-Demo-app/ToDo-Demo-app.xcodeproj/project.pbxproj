@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
+		C79380671D018BCB00665555 /* Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380661D018BCB00665555 /* Authenticator.m */; };
+		C793806A1D019CA400665555 /* LogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380691D019CA400665555 /* LogInVC.m */; };
+		C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A922DA1D09961200BD0178 /* RegistrationVC.m */; };
+		C7A922DE1D0AE21000BD0178 /* DatabaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A922DD1D0AE21000BD0178 /* DatabaseService.m */; };
+		C7BBDDA91CFC5FD10062C59C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7BBDDA81CFC5FD10062C59C /* GoogleService-Info.plist */; };
+		C7D0B5361CFC6BEC0023A256 /* MainTabbarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5351CFC6BEC0023A256 /* MainTabbarVC.m */; };
+		C7D0B5391CFEB6EA0023A256 /* TopMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5381CFEB6EA0023A256 /* TopMenu.m */; };
+		C7D0B53C1CFEC7F90023A256 /* NavigationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B53B1CFEC7F90023A256 /* NavigationVC.m */; };
+		C7D0B53F1CFEE71D0023A256 /* NavigationCollectionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B53E1CFEE71D0023A256 /* NavigationCollectionVC.m */; };
+		C7D0B5421CFEF10F0023A256 /* NavigationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5411CFEF10F0023A256 /* NavigationCollectionViewCell.m */; };
+		C7D0B5461D0025FF0023A256 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5451D0025FF0023A256 /* HomeVC.m */; };
+		C7D0B54C1D0026C50023A256 /* CalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B54B1D0026C50023A256 /* CalendarVC.m */; };
+		C7D0B54F1D0026DE0023A256 /* OverviewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B54E1D0026DE0023A256 /* OverviewVC.m */; };
+		C7D0B5521D0027180023A256 /* CreateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5511D0027180023A256 /* CreateVC.m */; };
+		C7D0B5551D0027260023A256 /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5541D0027260023A256 /* ProfileVC.m */; };
+		C7D0B5581D0027350023A256 /* TimelineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5571D0027350023A256 /* TimelineVC.m */; };
+		C7D0B55B1D0027770023A256 /* SettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B55A1D0027770023A256 /* SettingsVC.m */; };
+		C7D0B55F1D0028060023A256 /* GroupsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B55E1D0028060023A256 /* GroupsVC.m */; };
+		C7D0B5621D0028830023A256 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5611D0028830023A256 /* Configuration.m */; };
+		C7D0B5651D004FC90023A256 /* ListsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D0B5641D004FC90023A256 /* ListsVC.m */; };
 		C7EAD86E1CFC28EF0085CFF4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EAD86D1CFC28EF0085CFF4 /* main.m */; };
 		C7EAD8711CFC28EF0085CFF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7EAD8701CFC28EF0085CFF4 /* AppDelegate.m */; };
 		C7EAD8771CFC28EF0085CFF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7EAD8751CFC28EF0085CFF4 /* Main.storyboard */; };
@@ -15,6 +36,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.release.xcconfig"; sourceTree = "<group>"; };
+		44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDo-Demo-app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.debug.xcconfig"; sourceTree = "<group>"; };
+		C79380651D018BCB00665555 /* Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authenticator.h; sourceTree = "<group>"; };
+		C79380661D018BCB00665555 /* Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authenticator.m; sourceTree = "<group>"; };
+		C79380681D019CA400665555 /* LogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInVC.h; sourceTree = "<group>"; };
+		C79380691D019CA400665555 /* LogInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInVC.m; sourceTree = "<group>"; };
+		C7A922D91D09961200BD0178 /* RegistrationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationVC.h; sourceTree = "<group>"; };
+		C7A922DA1D09961200BD0178 /* RegistrationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationVC.m; sourceTree = "<group>"; };
+		C7A922DC1D0AE21000BD0178 /* DatabaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseService.h; sourceTree = "<group>"; };
+		C7A922DD1D0AE21000BD0178 /* DatabaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseService.m; sourceTree = "<group>"; };
+		C7BBDDA81CFC5FD10062C59C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C7D0B5341CFC6BEC0023A256 /* MainTabbarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabbarVC.h; sourceTree = "<group>"; };
+		C7D0B5351CFC6BEC0023A256 /* MainTabbarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabbarVC.m; sourceTree = "<group>"; };
+		C7D0B5371CFEB6EA0023A256 /* TopMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenu.h; sourceTree = "<group>"; };
+		C7D0B5381CFEB6EA0023A256 /* TopMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenu.m; sourceTree = "<group>"; };
+		C7D0B53A1CFEC7F90023A256 /* NavigationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationVC.h; sourceTree = "<group>"; };
+		C7D0B53B1CFEC7F90023A256 /* NavigationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationVC.m; sourceTree = "<group>"; };
+		C7D0B53D1CFEE71D0023A256 /* NavigationCollectionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCollectionVC.h; sourceTree = "<group>"; };
+		C7D0B53E1CFEE71D0023A256 /* NavigationCollectionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCollectionVC.m; sourceTree = "<group>"; };
+		C7D0B5401CFEF10F0023A256 /* NavigationCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationCollectionViewCell.h; sourceTree = "<group>"; };
+		C7D0B5411CFEF10F0023A256 /* NavigationCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationCollectionViewCell.m; sourceTree = "<group>"; };
+		C7D0B5441D0025FF0023A256 /* HomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeVC.h; sourceTree = "<group>"; };
+		C7D0B5451D0025FF0023A256 /* HomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
+		C7D0B54A1D0026C50023A256 /* CalendarVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarVC.h; sourceTree = "<group>"; };
+		C7D0B54B1D0026C50023A256 /* CalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarVC.m; sourceTree = "<group>"; };
+		C7D0B54D1D0026DE0023A256 /* OverviewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewVC.h; sourceTree = "<group>"; };
+		C7D0B54E1D0026DE0023A256 /* OverviewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewVC.m; sourceTree = "<group>"; };
+		C7D0B5501D0027180023A256 /* CreateVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateVC.h; sourceTree = "<group>"; };
+		C7D0B5511D0027180023A256 /* CreateVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateVC.m; sourceTree = "<group>"; };
+		C7D0B5531D0027260023A256 /* ProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
+		C7D0B5541D0027260023A256 /* ProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
+		C7D0B5561D0027350023A256 /* TimelineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineVC.h; sourceTree = "<group>"; };
+		C7D0B5571D0027350023A256 /* TimelineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineVC.m; sourceTree = "<group>"; };
+		C7D0B5591D0027770023A256 /* SettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsVC.h; sourceTree = "<group>"; };
+		C7D0B55A1D0027770023A256 /* SettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsVC.m; sourceTree = "<group>"; };
+		C7D0B55D1D0028060023A256 /* GroupsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsVC.h; sourceTree = "<group>"; };
+		C7D0B55E1D0028060023A256 /* GroupsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsVC.m; sourceTree = "<group>"; };
+		C7D0B5601D0028830023A256 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
+		C7D0B5611D0028830023A256 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
+		C7D0B5631D004FC90023A256 /* ListsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListsVC.h; sourceTree = "<group>"; };
+		C7D0B5641D004FC90023A256 /* ListsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListsVC.m; sourceTree = "<group>"; };
 		C7EAD8691CFC28EF0085CFF4 /* ToDo-Demo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToDo-Demo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7EAD86D1CFC28EF0085CFF4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C7EAD86F1CFC28EF0085CFF4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -30,17 +93,92 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D93B1E6AC75D6C625588542 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */,
+				2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3F89A35C003F7A9AA60B0F3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C7A922DF1D0AE21D00BD0178 /* FirebaseModel */ = {
+			isa = PBXGroup;
+			children = (
+				C79380651D018BCB00665555 /* Authenticator.h */,
+				C79380661D018BCB00665555 /* Authenticator.m */,
+				C7A922DC1D0AE21000BD0178 /* DatabaseService.h */,
+				C7A922DD1D0AE21000BD0178 /* DatabaseService.m */,
+			);
+			name = FirebaseModel;
+			sourceTree = "<group>";
+		};
+		C7D0B5431D0025880023A256 /* TopMenuNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				C7D0B5371CFEB6EA0023A256 /* TopMenu.h */,
+				C7D0B5381CFEB6EA0023A256 /* TopMenu.m */,
+				C7D0B53A1CFEC7F90023A256 /* NavigationVC.h */,
+				C7D0B53B1CFEC7F90023A256 /* NavigationVC.m */,
+				C7D0B53D1CFEE71D0023A256 /* NavigationCollectionVC.h */,
+				C7D0B53E1CFEE71D0023A256 /* NavigationCollectionVC.m */,
+				C7D0B5401CFEF10F0023A256 /* NavigationCollectionViewCell.h */,
+				C7D0B5411CFEF10F0023A256 /* NavigationCollectionViewCell.m */,
+			);
+			name = TopMenuNavigation;
+			sourceTree = "<group>";
+		};
+		C7D0B55C1D00278B0023A256 /* PageViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7D0B5441D0025FF0023A256 /* HomeVC.h */,
+				C7D0B5451D0025FF0023A256 /* HomeVC.m */,
+				C7D0B54A1D0026C50023A256 /* CalendarVC.h */,
+				C7D0B54B1D0026C50023A256 /* CalendarVC.m */,
+				C7D0B54D1D0026DE0023A256 /* OverviewVC.h */,
+				C7D0B54E1D0026DE0023A256 /* OverviewVC.m */,
+				C7D0B5501D0027180023A256 /* CreateVC.h */,
+				C7D0B5511D0027180023A256 /* CreateVC.m */,
+				C7D0B5531D0027260023A256 /* ProfileVC.h */,
+				C7D0B5541D0027260023A256 /* ProfileVC.m */,
+				C7D0B5561D0027350023A256 /* TimelineVC.h */,
+				C7D0B5571D0027350023A256 /* TimelineVC.m */,
+				C7D0B5591D0027770023A256 /* SettingsVC.h */,
+				C7D0B55A1D0027770023A256 /* SettingsVC.m */,
+				C7D0B55D1D0028060023A256 /* GroupsVC.h */,
+				C7D0B55E1D0028060023A256 /* GroupsVC.m */,
+				C7D0B5631D004FC90023A256 /* ListsVC.h */,
+				C7D0B5641D004FC90023A256 /* ListsVC.m */,
+				C79380681D019CA400665555 /* LogInVC.h */,
+				C79380691D019CA400665555 /* LogInVC.m */,
+				C7A922D91D09961200BD0178 /* RegistrationVC.h */,
+				C7A922DA1D09961200BD0178 /* RegistrationVC.m */,
+			);
+			name = PageViewControllers;
+			sourceTree = "<group>";
+		};
 		C7EAD8601CFC28EF0085CFF4 = {
 			isa = PBXGroup;
 			children = (
 				C7EAD86B1CFC28EF0085CFF4 /* ToDo-Demo-app */,
 				C7EAD86A1CFC28EF0085CFF4 /* Products */,
+				0D93B1E6AC75D6C625588542 /* Pods */,
+				3F89A35C003F7A9AA60B0F3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,10 +193,15 @@
 		C7EAD86B1CFC28EF0085CFF4 /* ToDo-Demo-app */ = {
 			isa = PBXGroup;
 			children = (
+				C7D0B5601D0028830023A256 /* Configuration.h */,
+				C7D0B5611D0028830023A256 /* Configuration.m */,
+				C7D0B5341CFC6BEC0023A256 /* MainTabbarVC.h */,
+				C7D0B5351CFC6BEC0023A256 /* MainTabbarVC.m */,
 				C7EAD8751CFC28EF0085CFF4 /* Main.storyboard */,
+				C7D0B5431D0025880023A256 /* TopMenuNavigation */,
+				C7D0B55C1D00278B0023A256 /* PageViewControllers */,
+				C7A922DF1D0AE21D00BD0178 /* FirebaseModel */,
 				C7EAD8781CFC28EF0085CFF4 /* Assets.xcassets */,
-				C7EAD87A1CFC28EF0085CFF4 /* LaunchScreen.storyboard */,
-				C7EAD87D1CFC28EF0085CFF4 /* Info.plist */,
 				C7EAD86C1CFC28EF0085CFF4 /* Supporting Files */,
 			);
 			path = "ToDo-Demo-app";
@@ -67,6 +210,9 @@
 		C7EAD86C1CFC28EF0085CFF4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7EAD87A1CFC28EF0085CFF4 /* LaunchScreen.storyboard */,
+				C7EAD87D1CFC28EF0085CFF4 /* Info.plist */,
+				C7BBDDA81CFC5FD10062C59C /* GoogleService-Info.plist */,
 				C7EAD86F1CFC28EF0085CFF4 /* AppDelegate.h */,
 				C7EAD8701CFC28EF0085CFF4 /* AppDelegate.m */,
 				C7EAD86D1CFC28EF0085CFF4 /* main.m */,
@@ -81,9 +227,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7EAD8801CFC28EF0085CFF4 /* Build configuration list for PBXNativeTarget "ToDo-Demo-app" */;
 			buildPhases = (
+				74FC5AD415D6D4638CD3F221 /* 📦 Check Pods Manifest.lock */,
 				C7EAD8651CFC28EF0085CFF4 /* Sources */,
 				C7EAD8661CFC28EF0085CFF4 /* Frameworks */,
 				C7EAD8671CFC28EF0085CFF4 /* Resources */,
+				E85FA482A8EED33A2A288AA8 /* 📦 Embed Pods Frameworks */,
+				BE23AA632918A5D6A1173AFD /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,18 +284,86 @@
 				C7EAD87C1CFC28EF0085CFF4 /* LaunchScreen.storyboard in Resources */,
 				C7EAD8791CFC28EF0085CFF4 /* Assets.xcassets in Resources */,
 				C7EAD8771CFC28EF0085CFF4 /* Main.storyboard in Resources */,
+				C7BBDDA91CFC5FD10062C59C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		74FC5AD415D6D4638CD3F221 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BE23AA632918A5D6A1173AFD /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E85FA482A8EED33A2A288AA8 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C7EAD8651CFC28EF0085CFF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D0B5651D004FC90023A256 /* ListsVC.m in Sources */,
+				C7D0B53F1CFEE71D0023A256 /* NavigationCollectionVC.m in Sources */,
+				C7D0B5391CFEB6EA0023A256 /* TopMenu.m in Sources */,
+				C7D0B5551D0027260023A256 /* ProfileVC.m in Sources */,
+				C7D0B5621D0028830023A256 /* Configuration.m in Sources */,
+				C7A922DE1D0AE21000BD0178 /* DatabaseService.m in Sources */,
+				C79380671D018BCB00665555 /* Authenticator.m in Sources */,
+				C7D0B54C1D0026C50023A256 /* CalendarVC.m in Sources */,
 				C7EAD8711CFC28EF0085CFF4 /* AppDelegate.m in Sources */,
+				C7D0B5421CFEF10F0023A256 /* NavigationCollectionViewCell.m in Sources */,
+				C7D0B5521D0027180023A256 /* CreateVC.m in Sources */,
+				C7D0B54F1D0026DE0023A256 /* OverviewVC.m in Sources */,
+				C7D0B5581D0027350023A256 /* TimelineVC.m in Sources */,
 				C7EAD86E1CFC28EF0085CFF4 /* main.m in Sources */,
+				C7D0B55B1D0027770023A256 /* SettingsVC.m in Sources */,
+				C793806A1D019CA400665555 /* LogInVC.m in Sources */,
+				C7D0B5461D0025FF0023A256 /* HomeVC.m in Sources */,
+				C7D0B53C1CFEC7F90023A256 /* NavigationVC.m in Sources */,
+				C7D0B55F1D0028060023A256 /* GroupsVC.m in Sources */,
+				C7D0B5361CFC6BEC0023A256 /* MainTabbarVC.m in Sources */,
+				C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +475,7 @@
 		};
 		C7EAD8811CFC28EF0085CFF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ToDo-Demo-app/Info.plist";
@@ -269,6 +487,7 @@
 		};
 		C7EAD8821CFC28EF0085CFF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "ToDo-Demo-app/Info.plist";

@@ -10,4 +10,6 @@
 
 @interface NavigationCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic, strong) UILabel *titleLabel;
+
 @end
