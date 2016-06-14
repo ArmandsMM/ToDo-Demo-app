@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 @import Firebase;
+@import FirebaseDatabase;
 
 @interface DatabaseService : NSObject
 
 @property (nonatomic, strong) FIRDatabaseReference *ref;
+
+- (void) saveProfileDataToDatabaseWithUsername:(NSString *) username email:(NSString *) email birthday:(NSString *) birthday imagePath:(NSString *) path;
+
+- (void) createNewTask:(NSString *) date taskTitle:(NSString *) title taskDescription:(NSString *) description time:(NSArray *) time place:(NSString *) place  withUsers:(NSArray *) users withNotification:(NSNumber *) minutesBefore completion:(void (^)(BOOL success))completionBlock;
 
 @end

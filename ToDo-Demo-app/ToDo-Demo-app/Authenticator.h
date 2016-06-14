@@ -15,6 +15,6 @@
 + (void) logOutWithCompletion:(void (^)(NSError * error))completionBlock;
 + (BOOL ) checkIfLoggedIn;
 
-+(void) createUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *))completionBlock ;
++(void) createUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *error))completionBlock ;
 
 @end

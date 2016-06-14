@@ -8,6 +8,9 @@
 
 #import "RegistrationVC.h"
 
+#import "DatabaseService.h"
+#import "StorageService.h"
+
 @interface RegistrationVC ()
 
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -26,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBarHidden = NO;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.height/2;
 
     self.activityIndicator.hidden = YES;
     self.headerView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
@@ -38,16 +41,6 @@
     self.birthdayTextField.delegate = self;
 
     self.passwordTextField.secureTextEntry = YES;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:NO];
-    self.navigationController.navigationBarHidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:NO];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (IBAction)backTapped:(id)sender {
@@ -67,7 +60,16 @@
     self.activityIndicator.hidden = NO;
     [Authenticator createUser:self.emailTextField.text andPassword:self.passwordTextField.text completion:^(NSError *error) {
         if (!error) {
-            //NSLog(@"yay!");
+
+            DatabaseService *service = [DatabaseService new];
+            NSData *imageData = UIImageJPEGRepresentation(self.profileImageView.image, 1.0);
+
+            StorageService *storage = [StorageService new];
+            [storage uploadImage:imageData forUser:[FIRAuth auth].currentUser.uid];
+            
+            NSString *imagePath = [NSString stringWithFormat:@"%@/profile-image.jpg", [FIRAuth auth].currentUser.uid];
+            [service saveProfileDataToDatabaseWithUsername:self.usernameTextField.text email:self.emailTextField.text birthday:self.birthdayTextField.text imagePath:imagePath];
+
             [self dismissViewControllerAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"didConnect"
                                                                     object:nil
@@ -113,6 +115,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    [self resetViews];
     return NO;
 }
 
@@ -122,13 +125,8 @@
     [self.passwordTextField resignFirstResponder];
     [self.birthdayTextField resignFirstResponder];
 
-    [UIView animateWithDuration:0.225 animations:^{
-//        self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-//        [self.view setNeedsLayout];
-        CGRect newRect = self.view.frame;
-        newRect.origin.y = 0;
-        self.view.frame = newRect;
-    }];
+    [self resetViews];
+
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
@@ -142,10 +140,18 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     if (![self isValidEmail:self.emailTextField.text]) {
-        self.emailTextField.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
+        self.emailTextField.textColor = [UIColor redColor];
     } else {
-        self.emailTextField.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:3.0];
+        self.emailTextField.textColor = [UIColor whiteColor];
     }
+}
+
+- (void) resetViews {
+    [UIView animateWithDuration:0.325 animations:^{
+        CGRect newRect = self.view.frame;
+        newRect.origin.y = 0;
+        self.view.frame = newRect;
+    }];
 }
 
 #pragma mark - Photo

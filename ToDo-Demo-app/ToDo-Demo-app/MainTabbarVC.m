@@ -13,6 +13,12 @@
 #import "LogInVC.h"
 #import "CreateVC.h"
 
+#define UIColorFromRGB(rgbValue) \
+[UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
+blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
+alpha:1.0]
+
 @implementation MainTabbarVC {
     TopMenu *menu;
     Configuration *config;
@@ -49,9 +55,9 @@
     [createNewButton setTitle:@"+" forState:UIControlStateNormal];
     [createNewButton addTarget:self action:@selector(showCreateNewView) forControlEvents:UIControlEventTouchUpInside];
     createNewButton.titleLabel.textColor = [UIColor whiteColor];
-    createNewButton.backgroundColor = [UIColor greenColor];
+    createNewButton.backgroundColor = UIColorFromRGB(0x8c88ff);
 
-    createNewButton.layer.cornerRadius = 35;
+    createNewButton.layer.cornerRadius = 25;
 
     [self.view addSubview:createNewButton];
     [self addConstraintsToCreateNewButton:createNewButton];
@@ -59,11 +65,11 @@
 
 - (void) addConstraintsToCreateNewButton:(UIButton *) button {
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[v0(70)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[v0(50)]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:@{@"v0":button}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(70)]|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(50)]|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:@{@"v0":button}]];
@@ -80,12 +86,13 @@
         if (!success) {
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             newViewController = [sb instantiateViewControllerWithIdentifier:@"CreateVC"];
-            [self.view addSubview:newViewController.view];
-            [self addChildViewController:newViewController];
-            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-            [self configureNewViewConstraints];
+            //[self.view addSubview:newViewController.view];
+            //[self addChildViewController:newViewController];
+//            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+//            [self configureNewViewConstraints];
+            [self presentViewController:newViewController animated:YES completion:nil];
 
-            menu.topMenuTitle.text = @"Create New";
+            //menu.topMenuTitle.text = @"Create New";
         }
     }];
 }
@@ -101,12 +108,6 @@
     if (![Authenticator checkIfLoggedIn]) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
         LogInVC *newVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
-
-//        loginNVC = [sb instantiateViewControllerWithIdentifier:@"LoginNVC"];
-//        [self.view addSubview:loginNVC.view];
-//        [self presentViewController:loginNVC animated:NO completion:nil];
-//        [self configureLogInViewConstraints:loginNVC.view];
-
 
         [self.view addSubview:newVC.view];
         [self addChildViewController:newVC];
@@ -219,7 +220,7 @@
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self.view
                                                          attribute:NSLayoutAttributeHeight
-                                                        multiplier:0.92 constant:0]];
+                                                        multiplier:0.88 constant:0]];
 }
 
 - (void) configureLogInViewConstraints:(UIView *) loginview {
@@ -274,10 +275,10 @@
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeHeight
-                                                         multiplier:0.08 constant:0]];
+                                                         multiplier:0.12 constant:0]];
 }
 
-#pragma mark - ATM needed garbage
+#pragma mark - helper methods
 
 - (void) awakeFromNib {
     [super awakeFromNib];

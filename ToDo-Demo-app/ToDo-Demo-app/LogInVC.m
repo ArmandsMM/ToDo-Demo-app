@@ -9,7 +9,7 @@
 #import "LogInVC.h"
 
 @interface LogInVC()
-@property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (strong, nonatomic) IBOutlet IBInspectable UITextField *usernameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
+
     self.activityIndicator.hidden = YES;
 
     self.usernameTextField.delegate = self;
@@ -50,16 +50,6 @@
     self.passwordTextField.text = [[note userInfo] valueForKey:@"password"];
 
     NSLog(@"%@ , %@", [[note userInfo] valueForKey:@"email"], [[note userInfo] valueForKey:@"password"]);
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:NO];
-    self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:NO];
-    self.navigationController.navigationBarHidden = YES;
 }
 
 - (IBAction)loginButtonTapped:(id)sender {
@@ -109,6 +99,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    [self resetContainerView];
     return NO;
 }
 
@@ -117,11 +108,15 @@
     [self.usernameTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
 
+    [self resetContainerView];
+
+}
+
+- (void) resetContainerView {
     [UIView animateWithDuration:0.75 animations:^{
         self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         [self.view setNeedsLayout];
     }];
-
 }
 
 @end

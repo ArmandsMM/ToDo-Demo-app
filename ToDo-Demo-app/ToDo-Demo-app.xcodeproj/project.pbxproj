@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
+		C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55211D0E9F4D0031E1D5 /* StorageService.m */; };
+		C73B55251D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */; };
 		C79380671D018BCB00665555 /* Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380661D018BCB00665555 /* Authenticator.m */; };
 		C793806A1D019CA400665555 /* LogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380691D019CA400665555 /* LogInVC.m */; };
 		C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A922DA1D09961200BD0178 /* RegistrationVC.m */; };
@@ -39,6 +41,10 @@
 		2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.release.xcconfig"; sourceTree = "<group>"; };
 		44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDo-Demo-app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.debug.xcconfig"; sourceTree = "<group>"; };
+		C73B55201D0E9F4D0031E1D5 /* StorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		C73B55211D0E9F4D0031E1D5 /* StorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageService.m; sourceTree = "<group>"; };
+		C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldWithIBInspectiblePlaceholder.h; sourceTree = "<group>"; };
+		C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldWithIBInspectiblePlaceholder.m; sourceTree = "<group>"; };
 		C79380651D018BCB00665555 /* Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authenticator.h; sourceTree = "<group>"; };
 		C79380661D018BCB00665555 /* Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authenticator.m; sourceTree = "<group>"; };
 		C79380681D019CA400665555 /* LogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInVC.h; sourceTree = "<group>"; };
@@ -124,6 +130,8 @@
 				C79380661D018BCB00665555 /* Authenticator.m */,
 				C7A922DC1D0AE21000BD0178 /* DatabaseService.h */,
 				C7A922DD1D0AE21000BD0178 /* DatabaseService.m */,
+				C73B55201D0E9F4D0031E1D5 /* StorageService.h */,
+				C73B55211D0E9F4D0031E1D5 /* StorageService.m */,
 			);
 			name = FirebaseModel;
 			sourceTree = "<group>";
@@ -203,6 +211,8 @@
 				C7A922DF1D0AE21D00BD0178 /* FirebaseModel */,
 				C7EAD8781CFC28EF0085CFF4 /* Assets.xcassets */,
 				C7EAD86C1CFC28EF0085CFF4 /* Supporting Files */,
+				C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */,
+				C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */,
 			);
 			path = "ToDo-Demo-app";
 			sourceTree = "<group>";
@@ -346,6 +356,7 @@
 				C7D0B5651D004FC90023A256 /* ListsVC.m in Sources */,
 				C7D0B53F1CFEE71D0023A256 /* NavigationCollectionVC.m in Sources */,
 				C7D0B5391CFEB6EA0023A256 /* TopMenu.m in Sources */,
+				C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */,
 				C7D0B5551D0027260023A256 /* ProfileVC.m in Sources */,
 				C7D0B5621D0028830023A256 /* Configuration.m in Sources */,
 				C7A922DE1D0AE21000BD0178 /* DatabaseService.m in Sources */,
@@ -364,6 +375,7 @@
 				C7D0B55F1D0028060023A256 /* GroupsVC.m in Sources */,
 				C7D0B5361CFC6BEC0023A256 /* MainTabbarVC.m in Sources */,
 				C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */,
+				C73B55251D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

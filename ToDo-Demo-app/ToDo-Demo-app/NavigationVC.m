@@ -76,6 +76,7 @@
     [Authenticator logOutWithCompletion:^(NSError *error) {
         if (!error) {
             logOutView.hidden = YES;
+            [self dismissNavigationVC];
         }
     }];
 }
@@ -132,7 +133,7 @@
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self.view
                                                      attribute:NSLayoutAttributeCenterY
-                                                    multiplier:0.08 constant:0]];
+                                                    multiplier:0.12 constant:0]];
 }
 
 - (void) configureProfileImageConstraints: (UIImageView *) profileImageView {
@@ -179,7 +180,7 @@
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeCenterY
-                                                         multiplier:0.08 constant:0]];
+                                                         multiplier:0.12 constant:0]];
 }
 
 @end
