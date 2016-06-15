@@ -18,4 +18,6 @@
 
 - (void) createNewTask:(NSString *) date taskTitle:(NSString *) title taskDescription:(NSString *) description time:(NSArray *) time place:(NSString *) place  withUsers:(NSArray *) users withNotification:(NSNumber *) minutesBefore completion:(void (^)(BOOL success))completionBlock;
 
++ (NSDictionary *) loadLocalTasks;
+
 @end

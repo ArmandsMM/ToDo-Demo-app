@@ -39,11 +39,7 @@
 }
 
 - (void)createNewTask:(NSString *)date taskTitle:(NSString *)title taskDescription:(NSString *)description time:(NSArray *)time place:(NSString *)place withUsers:(NSArray *)users withNotification:(NSNumber *)minutesBefore completion:(void (^)(BOOL))completionBlock {
-    NSString *combinedUsers = @"";
-    for (NSString *user in users) {
-        [combinedUsers stringByAppendingString:[NSString stringWithFormat:@"-%@", user]];
-    }
-
+    NSString *combinedUsers = [users componentsJoinedByString:@"-"];
 
     NSString *key = [[self.ref child:@"tasks"] childByAutoId].key;
     NSDictionary *post = @{@"date": date,
@@ -60,6 +56,7 @@
             if (completionBlock != nil) {
                 completionBlock(YES);
                 [self updateTasksInUserProfile:key];
+
             }
         } else {
             if (completionBlock != nil) {
@@ -68,6 +65,47 @@
         }
     }];
 
+    [self saveTaskLocally:post];
+}
+
+- (void) saveTaskLocally:(NSDictionary *) task {
+    NSMutableArray *dataToSave = [NSMutableArray new];
+    [dataToSave addObject:task];
+
+    NSDictionary *oldData = [self loadLocalTasks];
+    if (oldData != nil) {
+        for (NSDictionary *item in [oldData objectForKey:@"tasks"]) {
+            [dataToSave addObject:item];
+        }
+    }
+
+    NSMutableDictionary *dataDict = [NSMutableDictionary new];
+    if (task != nil) {
+        [dataDict setObject:dataToSave forKey:@"tasks"];
+
+    }
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"tasks"];
+
+    [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+
+    [self loadLocalTasks];
+}
+
+- (NSDictionary *) loadLocalTasks {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"tasks"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSData *data = [NSData dataWithContentsOfFile:filePath];
+        NSDictionary *loadedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        if ([loadedData objectForKey:@"tasks"] != nil) {
+            //NSLog(@"loaded tasks: %@", [loadedData objectForKey:@"tasks"]);
+            return loadedData;
+        }
+    }
+    return nil;
 
 }
 

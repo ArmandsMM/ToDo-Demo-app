@@ -9,7 +9,7 @@
 #import "LogInVC.h"
 
 @interface LogInVC()
-@property (strong, nonatomic) IBOutlet IBInspectable UITextField *usernameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
@@ -38,6 +38,8 @@
                                              selector:@selector(checkNotificationFromRegistration:)
                                                  name:@"didConnect"
                                                object:nil];
+
+    [self addKeyboardToolBar];
 
 }
 
@@ -117,6 +119,42 @@
         self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
         [self.view setNeedsLayout];
     }];
+}
+
+- (void) addKeyboardToolBar {
+
+    CGRect keyBoardFrame = self.usernameTextField.frame;
+    keyBoardFrame.size.height = 40;
+    UIToolbar *keyboardToolBar = [[UIToolbar alloc] initWithFrame:keyBoardFrame];
+    [keyboardToolBar setItems:[NSArray arrayWithObjects:
+                               [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(selectPreviousTextField)],
+                               [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(selectNextTextField)],
+                               nil]];
+    self.usernameTextField.inputAccessoryView = keyboardToolBar;
+    self.passwordTextField.inputAccessoryView = keyboardToolBar;
+}
+
+- (void) selectPreviousTextField {
+
+    if ([self.usernameTextField isEditing]) {
+        return;
+    }
+    if ([self.passwordTextField isEditing]) {
+        [self.usernameTextField becomeFirstResponder];
+        return;
+    }
+
+}
+
+- (void) selectNextTextField {
+
+    if ([self.usernameTextField isEditing]) {
+        [self.passwordTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.passwordTextField isEditing]) {
+        return;
+    }
 }
 
 @end

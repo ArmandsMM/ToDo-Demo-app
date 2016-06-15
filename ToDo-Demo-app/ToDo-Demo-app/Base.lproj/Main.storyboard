@@ -195,10 +195,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUe-Ia-nrA">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9B1-7f-zc3">
-                                        <rect key="frame" x="2" y="10" width="30" height="36"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="X">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9B1-7f-zc3">
+                                        <rect key="frame" x="20" y="27" width="14" height="14"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9B1-7f-zc3" secondAttribute="height" multiplier="1:1" id="90X-YY-6Ng"/>
+                                        </constraints>
+                                        <state key="normal" image="discard-create-new">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -206,7 +208,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VjX-3s-RhV">
-                                        <rect key="frame" x="40" y="18" width="90" height="20"/>
+                                        <rect key="frame" x="49" y="24" width="90" height="20"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -214,10 +216,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.23921568627450981" green="0.23137254901960785" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="9B1-7f-zc3" firstAttribute="leading" secondItem="xUe-Ia-nrA" secondAttribute="leading" constant="2" id="2MM-Jx-sdA"/>
-                                    <constraint firstItem="VjX-3s-RhV" firstAttribute="leading" secondItem="9B1-7f-zc3" secondAttribute="trailing" constant="8" symbolic="YES" id="5n4-he-BQS"/>
+                                    <constraint firstItem="9B1-7f-zc3" firstAttribute="leading" secondItem="xUe-Ia-nrA" secondAttribute="leading" constant="20" symbolic="YES" id="2MM-Jx-sdA"/>
+                                    <constraint firstItem="9B1-7f-zc3" firstAttribute="height" secondItem="xUe-Ia-nrA" secondAttribute="height" multiplier="0.3" id="4BS-aL-vhy"/>
+                                    <constraint firstItem="VjX-3s-RhV" firstAttribute="leading" secondItem="9B1-7f-zc3" secondAttribute="trailing" constant="15" id="5n4-he-BQS"/>
                                     <constraint firstItem="VjX-3s-RhV" firstAttribute="centerY" secondItem="9B1-7f-zc3" secondAttribute="centerY" id="Cwg-lB-vkk"/>
-                                    <constraint firstAttribute="bottom" secondItem="9B1-7f-zc3" secondAttribute="bottom" constant="2" id="htR-rj-EL3"/>
+                                    <constraint firstAttribute="bottom" secondItem="9B1-7f-zc3" secondAttribute="bottom" constant="7" id="htR-rj-EL3"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ows-bX-2Um">
@@ -1180,6 +1183,7 @@
         <image name="bg" width="750" height="1334"/>
         <image name="birthday" width="42" height="43"/>
         <image name="create-task-done" width="63" height="64"/>
+        <image name="discard-create-new" width="24" height="24"/>
         <image name="email" width="40" height="35"/>
         <image name="mark" width="200" height="200"/>
         <image name="password" width="40" height="47"/>

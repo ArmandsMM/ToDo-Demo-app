@@ -52,12 +52,13 @@ alpha:1.0]
 
 - (void) addCreateNewButton {
     createNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [createNewButton setTitle:@"+" forState:UIControlStateNormal];
+    //[createNewButton setTitle:@"+" forState:UIControlStateNormal];
     [createNewButton addTarget:self action:@selector(showCreateNewView) forControlEvents:UIControlEventTouchUpInside];
-    createNewButton.titleLabel.textColor = [UIColor whiteColor];
-    createNewButton.backgroundColor = UIColorFromRGB(0x8c88ff);
-
-    createNewButton.layer.cornerRadius = 25;
+    //createNewButton.titleLabel.textColor = [UIColor whiteColor];
+    //createNewButton.backgroundColor = UIColorFromRGB(0x8c88ff);
+    [createNewButton setImage:[UIImage imageNamed:@"create-new-button.png"] forState:UIControlStateNormal];
+    createNewButton.imageView.layer.cornerRadius = 26;
+//    createNewButton.layer.cornerRadius = 25;
 
     [self.view addSubview:createNewButton];
     [self addConstraintsToCreateNewButton:createNewButton];

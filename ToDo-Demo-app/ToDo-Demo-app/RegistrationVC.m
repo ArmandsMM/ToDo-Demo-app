@@ -41,6 +41,8 @@
     self.birthdayTextField.delegate = self;
 
     self.passwordTextField.secureTextEntry = YES;
+
+    [self addKeyboardToolBar];
 }
 
 - (IBAction)backTapped:(id)sender {
@@ -152,6 +154,60 @@
         newRect.origin.y = 0;
         self.view.frame = newRect;
     }];
+}
+
+- (void) addKeyboardToolBar {
+
+    CGRect keyBoardFrame = self.usernameTextField.frame;
+    keyBoardFrame.size.height = 40;
+    UIToolbar *keyboardToolBar = [[UIToolbar alloc] initWithFrame:keyBoardFrame];
+    [keyboardToolBar setItems:[NSArray arrayWithObjects:
+                               [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(selectPreviousTextField)],
+                               [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(selectNextTextField)],
+                               nil]];
+    self.usernameTextField.inputAccessoryView = keyboardToolBar;
+    self.emailTextField.inputAccessoryView = keyboardToolBar;
+    self.passwordTextField.inputAccessoryView = keyboardToolBar;
+    self.birthdayTextField.inputAccessoryView = keyboardToolBar;
+}
+
+- (void) selectPreviousTextField {
+
+    if ([self.usernameTextField isEditing]) {
+        return;
+    }
+    if ([self.emailTextField isEditing]) {
+        [self.usernameTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.passwordTextField isEditing]) {
+        [self.emailTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.birthdayTextField isEditing]) {
+        [self.passwordTextField becomeFirstResponder];
+        return;
+    }
+
+}
+
+- (void) selectNextTextField {
+
+    if ([self.usernameTextField isEditing]) {
+        [self.emailTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.emailTextField isEditing]) {
+        [self.passwordTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.passwordTextField isEditing]) {
+        [self.birthdayTextField becomeFirstResponder];
+        return;
+    }
+    if ([self.birthdayTextField isEditing]) {
+        return;
+    }
 }
 
 #pragma mark - Photo
