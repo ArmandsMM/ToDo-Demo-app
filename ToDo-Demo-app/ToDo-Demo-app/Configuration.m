@@ -16,6 +16,8 @@
 #import "TimelineVC.h"
 #import "SettingsVC.h"
 
+//#import "DatabaseService.h"
+
 @implementation Configuration
 
 + (instancetype)sharedInstance
@@ -45,6 +47,7 @@
         SettingsVC *settings = [sb instantiateViewControllerWithIdentifier:@"SettingsVC"];
 
         self.navigationViews = @[home, calendar, overview, groups, lists, profile, timeline, settings];
+        
     }
     return self;
 }
@@ -55,5 +58,27 @@
     }
     return _tabbarItems;
 }
+
+//- (NSMutableArray *) localTasks {
+//    if (!_localTasks) {
+//        _localTasks = [NSMutableArray new];
+//        DatabaseService *service = [DatabaseService new];
+//        NSDictionary *taskDict = [service loadLocalTasks];
+//        for (NSDictionary *item in [taskDict objectForKey:@"tasks"]) {
+//            [_localTasks addObject:item];
+//        }
+//    }
+//    return _localTasks;
+//}
+//
+//+ (NSArray *) refreshLocalTasks {
+//    DatabaseService *service = [DatabaseService new];
+//    NSDictionary *refreshedDict = [service loadLocalTasks];
+//    NSMutableArray *tempTaskArray= [NSMutableArray new];
+//    for (NSDictionary* item in [refreshedDict objectForKey:@"tasks"]) {
+//        [tempTaskArray addObject:item];
+//    }
+//    return tempTaskArray;
+//}
 
 @end

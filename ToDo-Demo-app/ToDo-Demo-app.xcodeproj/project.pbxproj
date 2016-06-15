@@ -10,6 +10,7 @@
 		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
 		C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55211D0E9F4D0031E1D5 /* StorageService.m */; };
 		C73B55251D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */; };
+		C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55271D11826B0031E1D5 /* HomeCollectionViewCell.m */; };
 		C79380671D018BCB00665555 /* Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380661D018BCB00665555 /* Authenticator.m */; };
 		C793806A1D019CA400665555 /* LogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380691D019CA400665555 /* LogInVC.m */; };
 		C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A922DA1D09961200BD0178 /* RegistrationVC.m */; };
@@ -45,6 +46,8 @@
 		C73B55211D0E9F4D0031E1D5 /* StorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageService.m; sourceTree = "<group>"; };
 		C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldWithIBInspectiblePlaceholder.h; sourceTree = "<group>"; };
 		C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldWithIBInspectiblePlaceholder.m; sourceTree = "<group>"; };
+		C73B55261D11826B0031E1D5 /* HomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCollectionViewCell.h; sourceTree = "<group>"; };
+		C73B55271D11826B0031E1D5 /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
 		C79380651D018BCB00665555 /* Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authenticator.h; sourceTree = "<group>"; };
 		C79380661D018BCB00665555 /* Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authenticator.m; sourceTree = "<group>"; };
 		C79380681D019CA400665555 /* LogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInVC.h; sourceTree = "<group>"; };
@@ -121,6 +124,15 @@
 				44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C73B552B1D1182720031E1D5 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C73B55261D11826B0031E1D5 /* HomeCollectionViewCell.h */,
+				C73B55271D11826B0031E1D5 /* HomeCollectionViewCell.m */,
+			);
+			name = CollectionViewCells;
 			sourceTree = "<group>";
 		};
 		C7A922DF1D0AE21D00BD0178 /* FirebaseModel */ = {
@@ -208,6 +220,7 @@
 				C7EAD8751CFC28EF0085CFF4 /* Main.storyboard */,
 				C7D0B5431D0025880023A256 /* TopMenuNavigation */,
 				C7D0B55C1D00278B0023A256 /* PageViewControllers */,
+				C73B552B1D1182720031E1D5 /* CollectionViewCells */,
 				C7A922DF1D0AE21D00BD0178 /* FirebaseModel */,
 				C7EAD8781CFC28EF0085CFF4 /* Assets.xcassets */,
 				C7EAD86C1CFC28EF0085CFF4 /* Supporting Files */,
@@ -364,6 +377,7 @@
 				C7D0B54C1D0026C50023A256 /* CalendarVC.m in Sources */,
 				C7EAD8711CFC28EF0085CFF4 /* AppDelegate.m in Sources */,
 				C7D0B5421CFEF10F0023A256 /* NavigationCollectionViewCell.m in Sources */,
+				C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */,
 				C7D0B5521D0027180023A256 /* CreateVC.m in Sources */,
 				C7D0B54F1D0026DE0023A256 /* OverviewVC.m in Sources */,
 				C7D0B5581D0027350023A256 /* TimelineVC.m in Sources */,

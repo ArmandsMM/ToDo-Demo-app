@@ -122,7 +122,7 @@
           withNotification:notification completion:^(BOOL success) {
               if (success) {
                   self.activityIndicator.hidden = YES;
-                  //[self.view removeFromSuperview];
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"didCreateNewTask" object:self];
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
           }];

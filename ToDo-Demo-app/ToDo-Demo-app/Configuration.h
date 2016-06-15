@@ -14,6 +14,10 @@
 @property (nonatomic, strong) NSArray *navigationItems;
 @property (nonatomic, strong) NSArray *navigationViews;
 
+//@property (nonatomic, strong) NSMutableArray *localTasks;
+
 + (instancetype)sharedInstance;
+
+//+ (NSArray *) refreshLocalTasks;
 
 @end
