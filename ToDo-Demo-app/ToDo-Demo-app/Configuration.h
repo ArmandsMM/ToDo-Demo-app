@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DatabaseService.h"
+#import "StorageService.h"
 
 @interface Configuration : NSObject
 
@@ -14,10 +16,9 @@
 @property (nonatomic, strong) NSArray *navigationItems;
 @property (nonatomic, strong) NSArray *navigationViews;
 
-//@property (nonatomic, strong) NSMutableArray *localTasks;
+@property (nonatomic, strong) DatabaseService *service;
+@property (nonatomic, strong) UIImage *profileImage;
 
 + (instancetype)sharedInstance;
-
-//+ (NSArray *) refreshLocalTasks;
 
 @end

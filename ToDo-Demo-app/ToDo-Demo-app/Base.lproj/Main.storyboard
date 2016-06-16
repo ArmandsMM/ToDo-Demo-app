@@ -134,15 +134,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="144" height="144"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANn-jO-gMh">
-                                                    <rect key="frame" x="13" y="43" width="28" height="43"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANn-jO-gMh">
+                                                    <rect key="frame" x="13" y="43" width="123" height="43"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9-10pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYu-oZ-jUT">
-                                                    <rect key="frame" x="43" y="14" width="60" height="20"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9-10pm" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYu-oZ-jUT">
+                                                    <rect key="frame" x="43" y="16" width="50" height="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -179,6 +179,7 @@
                                             <constraint firstItem="gqe-jV-lkl" firstAttribute="width" secondItem="sZL-j0-rn4" secondAttribute="width" multiplier="0.15" id="XNK-dM-9iE"/>
                                             <constraint firstItem="qYu-oZ-jUT" firstAttribute="leading" secondItem="gqe-jV-lkl" secondAttribute="trailing" constant="8" symbolic="YES" id="ay6-PM-v3Z"/>
                                             <constraint firstItem="ANn-jO-gMh" firstAttribute="leading" secondItem="gqe-jV-lkl" secondAttribute="leading" id="bkJ-ew-X5S"/>
+                                            <constraint firstAttribute="trailing" secondItem="ANn-jO-gMh" secondAttribute="trailing" constant="8" id="eye-Ly-OXZ"/>
                                             <constraint firstItem="l66-Uk-2Wz" firstAttribute="leading" secondItem="sZL-j0-rn4" secondAttribute="leading" id="fQh-4e-nEJ"/>
                                             <constraint firstItem="gqe-jV-lkl" firstAttribute="leading" secondItem="sZL-j0-rn4" secondAttribute="leadingMargin" constant="5" id="oF2-Z6-T6P"/>
                                             <constraint firstItem="ANn-jO-gMh" firstAttribute="centerX" secondItem="sZL-j0-rn4" secondAttribute="centerX" id="oe5-fM-sNw"/>
@@ -230,6 +231,8 @@
                     <connections>
                         <outlet property="headerView" destination="dZC-nc-8hg" id="XvF-Gi-LaC"/>
                         <outlet property="homeCollectionView" destination="dPI-sQ-HA1" id="uTl-Hy-wwk"/>
+                        <outlet property="taskCountLabel" destination="86U-yC-kKg" id="f0s-OX-hok"/>
+                        <outlet property="taskDaylabel" destination="kMy-Jn-mf1" id="lT1-xk-MzQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ifr-bl-Mqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -465,7 +468,7 @@
                                     <constraint firstAttribute="height" constant="1" id="87B-kV-31j"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8:00am" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UBU-6P-epZ">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="8:00" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UBU-6P-epZ">
                                 <rect key="frame" x="20" y="264" width="128" height="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
@@ -478,7 +481,7 @@
                                     <constraint firstAttribute="height" constant="1" id="xCJ-ci-ZpP"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10:00am" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X1r-E4-3kX">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10:00" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X1r-E4-3kX">
                                 <rect key="frame" x="172" y="264" width="128" height="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>

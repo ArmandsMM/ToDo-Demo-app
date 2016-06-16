@@ -15,8 +15,8 @@
     self = [super init];
     if (self) {
         FIRStorage *storage = [FIRStorage storage];
-        self.sorageReference = [storage referenceForURL:@"gs://todo-demo-app-2ca4a.appspot.com"];
-        self.imagesFolderRef = [self.sorageReference child:@"images"];
+        self.storageReference = [storage referenceForURL:@"gs://todo-demo-app-2ca4a.appspot.com"];
+        self.imagesFolderRef = [self.storageReference child:@"images"];
     }
     return self;
 }
@@ -40,7 +40,7 @@
 
 - (UIImage *)downloadImageForUser:(NSString *)user {
     __block UIImage *image = [UIImage new];
-    FIRStorageReference *userProfileImageRef = [self.sorageReference child:[NSString stringWithFormat:@"%@/profile-image.jpg", user]];
+    FIRStorageReference *userProfileImageRef = [self.storageReference child:[NSString stringWithFormat:@"%@/profile-image.jpg", user]];
     
     [userProfileImageRef dataWithMaxSize:1*1024*1024
                               completion:^(NSData * _Nullable data, NSError * _Nullable error) {
@@ -52,6 +52,18 @@
                               }];
     return image;
 
+}
+
+- (void) downloadProfileImage:(void (^)(UIImage *image))completionBlock {
+    [[[[self.storageReference child:@"images"] child:[FIRAuth auth].currentUser.uid] child:@"profile-image.jpg"] dataWithMaxSize:1*1024*1024 completion:^(NSData * _Nullable data, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"storage : %@", error.localizedDescription);
+        } else {
+            if (completionBlock != nil) {
+                completionBlock([UIImage imageWithData:data]);
+            }
+        }
+    }];
 }
 
 @end

@@ -9,15 +9,16 @@
 #import "NavigationVC.h"
 #import "NavigationCollectionVC.h"
 #import "Authenticator.h"
+#import "Configuration.h"
 
 @implementation NavigationVC {
-    UIView *logOutView;
+    UIButton *logOutbutton;
 }
 
 -(instancetype)init {
     self  = [super init];
     if (self) {
-        self.view.backgroundColor = [UIColor darkGrayColor];
+        self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.7];
         [self addCloseButton];
         [self addProfileImage];
         [self addNavigationCollectionView];
@@ -28,12 +29,14 @@
 
 - (void) addLogOutButton {
     if ([Authenticator checkIfLoggedIn]) {
-        logOutView = [UIView new];
-        logOutView.backgroundColor = [UIColor lightGrayColor];
-        [self.view addSubview:logOutView];
-        [self configureLogOutViewConstraints:logOutView];
-        [self addGestureRecognizerToLogOutView: logOutView];
-        logOutView.hidden = NO;
+        logOutbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [logOutbutton setImage:[UIImage imageNamed:@"log-out.png"] forState:UIControlStateNormal];
+        [logOutbutton addTarget:self action:@selector(logOutUser) forControlEvents:UIControlEventTouchUpInside];
+
+        [self.view addSubview:logOutbutton];
+        [self configureLogOutViewConstraints:logOutbutton];
+
+        logOutbutton.hidden = NO;
     }
 }
 
@@ -47,6 +50,7 @@
 - (void) addProfileImage {
     UIImageView *imageView = [UIImageView new];
     imageView.backgroundColor = [UIColor purpleColor];
+    [imageView setImage:[Configuration sharedInstance].profileImage];
     [self.view addSubview:imageView];
     [self configureProfileImageConstraints:imageView];
 
@@ -55,16 +59,11 @@
 }
 
 - (void) addCloseButton {
-    UIView *closeButton = [UIView new];
-    closeButton.backgroundColor = [UIColor lightGrayColor];
+    UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeButton setImage:[UIImage imageNamed:@"discard-create-new.png"] forState:UIControlStateNormal];
+    [closeButton addTarget:self action:@selector(dismissNavigationVC) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
     [self configureCloseButtonConstraints:closeButton];
-    [self addGestureRecognizerToCloseButton:closeButton];
-}
-
-- (void) addGestureRecognizerToCloseButton:(UIView *) closeButton {
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissNavigationVC)];
-    [closeButton addGestureRecognizer:recognizer];
 }
 
 - (void) addGestureRecognizerToLogOutView:(UIView *) view {
@@ -75,7 +74,7 @@
 - (void) logOutUser {
     [Authenticator logOutWithCompletion:^(NSError *error) {
         if (!error) {
-            logOutView.hidden = YES;
+            logOutbutton.hidden = YES;
             [self dismissNavigationVC];
         }
     }];
@@ -118,7 +117,7 @@
 
 - (void) configureCloseButtonConstraints:(UIView *) closeButton {
     closeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[v0(20)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[v0(20)]"
                                                                  options:0
                                                                  metrics:nil
                                                                    views:@{@"v0":closeButton}]];
@@ -133,7 +132,7 @@
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self.view
                                                      attribute:NSLayoutAttributeCenterY
-                                                    multiplier:0.12 constant:0]];
+                                                    multiplier:0.15 constant:0]];
 }
 
 - (void) configureProfileImageConstraints: (UIImageView *) profileImageView {
@@ -165,12 +164,12 @@
 
 - (void) configureLogOutViewConstraints: (UIView *) view {
     view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[v0(20)]-10-|"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[v0(23)]-15-|"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:@{@"v0":view}]];
 
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(20)]"
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(23)]"
                                                                       options:0
                                                                       metrics:nil
                                                                         views:@{@"v0":view}]];
@@ -180,7 +179,7 @@
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeCenterY
-                                                         multiplier:0.12 constant:0]];
+                                                         multiplier:0.15 constant:0]];
 }
 
 @end

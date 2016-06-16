@@ -103,7 +103,7 @@
     DatabaseService *service = [DatabaseService new];
 
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateFormat = @"dd-MM-yyy HH:mm";
+    dateFormatter.dateFormat = @"dd-MM-yyy";
     if (self.taskDate == nil) {
         self.taskDate = [NSDate date];
     }
@@ -122,7 +122,7 @@
           withNotification:notification completion:^(BOOL success) {
               if (success) {
                   self.activityIndicator.hidden = YES;
-                  [[NSNotificationCenter defaultCenter] postNotificationName:@"didCreateNewTask" object:self];
+//                  [[NSNotificationCenter defaultCenter] postNotificationName:@"didCreateNewTask" object:self];
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
           }];

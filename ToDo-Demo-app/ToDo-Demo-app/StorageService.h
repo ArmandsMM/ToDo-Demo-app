@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@import Firebase;
 
 @import FirebaseStorage;
 
 @interface StorageService : NSObject
 
-@property (nonatomic, strong) FIRStorageReference *sorageReference;
+@property (nonatomic, strong) FIRStorageReference *storageReference;
 @property (nonatomic, strong) FIRStorageReference *imagesFolderRef;
 
 - (void) uploadImage:(NSData *) imageData forUser:(NSString *) user;
 - (UIImage *) downloadImageForUser:(NSString *) user;
-
+- (void) downloadProfileImage:(void (^)(UIImage *image)) completionBlock;
 @end

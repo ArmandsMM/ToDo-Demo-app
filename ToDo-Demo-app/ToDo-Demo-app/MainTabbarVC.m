@@ -31,7 +31,6 @@ alpha:1.0]
     [super viewDidLoad];
     [self prepareConfiguration];
 
-
     self.selectedIndex = 2;
 
     self.tabBar.backgroundColor = [UIColor darkGrayColor];
@@ -52,13 +51,9 @@ alpha:1.0]
 
 - (void) addCreateNewButton {
     createNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //[createNewButton setTitle:@"+" forState:UIControlStateNormal];
     [createNewButton addTarget:self action:@selector(showCreateNewView) forControlEvents:UIControlEventTouchUpInside];
-    //createNewButton.titleLabel.textColor = [UIColor whiteColor];
-    //createNewButton.backgroundColor = UIColorFromRGB(0x8c88ff);
     [createNewButton setImage:[UIImage imageNamed:@"create-new-button.png"] forState:UIControlStateNormal];
     createNewButton.imageView.layer.cornerRadius = 26;
-//    createNewButton.layer.cornerRadius = 25;
 
     [self.view addSubview:createNewButton];
     [self addConstraintsToCreateNewButton:createNewButton];
@@ -87,19 +82,15 @@ alpha:1.0]
         if (!success) {
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
             newViewController = [sb instantiateViewControllerWithIdentifier:@"CreateVC"];
-            //[self.view addSubview:newViewController.view];
-            //[self addChildViewController:newViewController];
-//            newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-//            [self configureNewViewConstraints];
-            [self presentViewController:newViewController animated:YES completion:nil];
 
-            //menu.topMenuTitle.text = @"Create New";
+            [self presentViewController:newViewController animated:YES completion:nil];
         }
     }];
 }
 
 - (void) prepareConfiguration {
-    config = [[Configuration sharedInstance] init];
+//    config = [[Configuration sharedInstance] init];
+    config = [Configuration sharedInstance];
 }
 
 #pragma mark - Login Check
@@ -193,6 +184,14 @@ alpha:1.0]
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
     [self updateTopMenuTitle];
+}
+
+- (void) toggleMenuButton {
+    if (newViewController) {
+        [newViewController.view removeFromSuperview];
+        [newViewController removeFromParentViewController];
+    }
+    [self prepareLoginViewWithCompletion:nil];
 }
 
 #pragma mark - Constraints
@@ -297,14 +296,6 @@ alpha:1.0]
 
 - (void) didLogin {
     [self updateTopMenuTitle];
-}
-
-- (void) toggleMenuButton {
-    if (newViewController) {
-        [newViewController.view removeFromSuperview];
-        [newViewController removeFromParentViewController];
-    }
-    [self prepareLoginViewWithCompletion:nil];
 }
 
 - (void) dealloc {

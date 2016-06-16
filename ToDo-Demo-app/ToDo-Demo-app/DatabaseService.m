@@ -8,7 +8,6 @@
 
 #import "DatabaseService.h"
 #import "Authenticator.h"
-//#import <FirebaseDatabase/FirebaseDatabase.h>
 
 @implementation DatabaseService
 
@@ -16,6 +15,7 @@
     self = [super init];
     if (self) {
         self.ref = [[FIRDatabase database] reference];
+
     }
     return self;
 }
@@ -49,7 +49,8 @@
                            @"time-end": time[1],
                            @"place": place,
                            @"users": combinedUsers,
-                           @"task-author": [FIRAuth auth].currentUser.uid};
+                           @"task-author": [FIRAuth auth].currentUser.uid,
+                           @"task-id": key};
     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/tasks/%@", key]:post};
     [self.ref updateChildValues:childUpdates withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
         if (!error) {
@@ -64,8 +65,60 @@
             }
         }
     }];
+}
 
-    [self saveTaskLocally:post];
+- (void) downloadTasks:(FIRDataSnapshot *) tasksSnapshot {
+        [[[self.ref child:@"tasks"] child:tasksSnapshot.value] observeSingleEventOfType:FIRDataEventTypeValue
+                                                                                 withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                                     NSLog(@"downloaded Tasks: %@", snapshot);
+                                                                                     [self saveTaskLocally:snapshot.value];
+                                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"taskDownloadedAndSaved" object:nil];
+                                                                                 }];
+}
+
+#pragma mark - firebase listener
+
+- (void) readUserDataOnce {
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    [[[self.ref child:@"user-profiles"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        //NSLog(@"%@", snapshot.value[@"username"]);
+    }];
+}
+
+- (void) listenForTaskDataChangeFromFirebase {
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    //listen for added task
+    [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildAdded
+                                                                                      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                                          //NSLog(@"added: %@", snapshot.value);
+                                                                                          if (snapshot != nil) {
+                                                                                              if (![self allreadyIsLocal:snapshot.value]) {
+                                                                                                  [self downloadTasks:snapshot];
+                                                                                              }
+                                                                                          }
+                                                                                      }];
+    //listen for removed task
+    [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildRemoved
+                                                                                      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                                          //NSLog(@"removed: %@", snapshot);
+                                                                                          if (snapshot != nil) {
+
+                                                                                          }
+                                                                                      }];
+}
+
+#pragma mark - local save/load
+
+- (BOOL) allreadyIsLocal :(NSString *) task {
+    NSDictionary *localTasks = [self loadLocalTasks];
+    if (localTasks != nil) {
+        for (NSDictionary *singleLocalTask in [localTasks objectForKey:@"tasks"]) {
+            if ([[singleLocalTask valueForKey:@"task-id"] isEqualToString:task]) {
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 - (void) saveTaskLocally:(NSDictionary *) task {
@@ -74,8 +127,8 @@
 
     NSDictionary *oldData = [self loadLocalTasks];
     if (oldData != nil) {
-        for (NSDictionary *item in [oldData objectForKey:@"tasks"]) {
-            [dataToSave addObject:item];
+        for (NSDictionary *localTask in [oldData objectForKey:@"tasks"]) {
+            [dataToSave addObject:localTask];
         }
     }
 
@@ -89,8 +142,6 @@
     NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"tasks"];
 
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
-
-    [self loadLocalTasks];
 }
 
 - (NSDictionary *) loadLocalTasks {
