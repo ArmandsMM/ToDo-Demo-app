@@ -21,4 +21,6 @@
 
 + (instancetype)sharedInstance;
 
+- (void) setupProfileImageAndFirebaseListeners;
+
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
+		C71569231D17F8530099B9D0 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C71569221D17F8530099B9D0 /* SettingsTVC.m */; };
 		C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55211D0E9F4D0031E1D5 /* StorageService.m */; };
 		C73B55251D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */; };
 		C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55271D11826B0031E1D5 /* HomeCollectionViewCell.m */; };
@@ -42,6 +43,8 @@
 		2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.release.xcconfig"; sourceTree = "<group>"; };
 		44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDo-Demo-app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.debug.xcconfig"; sourceTree = "<group>"; };
+		C71569211D17F8530099B9D0 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
+		C71569221D17F8530099B9D0 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		C73B55201D0E9F4D0031E1D5 /* StorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		C73B55211D0E9F4D0031E1D5 /* StorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageService.m; sourceTree = "<group>"; };
 		C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldWithIBInspectiblePlaceholder.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				C7D0B5571D0027350023A256 /* TimelineVC.m */,
 				C7D0B5591D0027770023A256 /* SettingsVC.h */,
 				C7D0B55A1D0027770023A256 /* SettingsVC.m */,
+				C71569211D17F8530099B9D0 /* SettingsTVC.h */,
+				C71569221D17F8530099B9D0 /* SettingsTVC.m */,
 				C7D0B55D1D0028060023A256 /* GroupsVC.h */,
 				C7D0B55E1D0028060023A256 /* GroupsVC.m */,
 				C7D0B5631D004FC90023A256 /* ListsVC.h */,
@@ -368,6 +373,7 @@
 			files = (
 				C7D0B5651D004FC90023A256 /* ListsVC.m in Sources */,
 				C7D0B53F1CFEE71D0023A256 /* NavigationCollectionVC.m in Sources */,
+				C71569231D17F8530099B9D0 /* SettingsTVC.m in Sources */,
 				C7D0B5391CFEB6EA0023A256 /* TopMenu.m in Sources */,
 				C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */,
 				C7D0B5551D0027260023A256 /* ProfileVC.m in Sources */,

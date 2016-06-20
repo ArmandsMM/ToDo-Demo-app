@@ -7,10 +7,12 @@
 //
 
 #import "SettingsVC.h"
+#import "Configuration.h"
+#import "Authenticator.h"
+
 @interface SettingsVC()
 @property (strong, nonatomic) IBOutlet UIView *containerView;
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
-
 @property (strong, nonatomic) UITableViewController *settingsTVC;
 
 @end
@@ -19,12 +21,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.profileImageView.image = [Configuration sharedInstance].profileImage;
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 1.8;
+    self.profileImageView.clipsToBounds = YES;
+
     [self setupSettingsTVC];
-    
+
 }
 
 - (IBAction)logOutTapped:(id)sender {
     NSLog(@"log out tapped");
+    [Authenticator logOutWithCompletion:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@", error.localizedDescription);
+        } else {
+//            [self removeFromParentViewController];
+//            [self.view removeFromSuperview];
+        }
+    }];
 }
 
 #pragma mark settings tableview
@@ -44,13 +59,8 @@
                                                                                options:0
                                                                                metrics:nil
                                                                                  views:@{@"v0":self.settingsTVC.view}]];
-    self.settingsTVC.tableView.delegate = self;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"cell %ld tapped", (long)indexPath.row);
-
-
+    self.settingsTVC.view.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
+    self.containerView.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
 }
 
 @end

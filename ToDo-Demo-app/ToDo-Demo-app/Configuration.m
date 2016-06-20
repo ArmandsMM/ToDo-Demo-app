@@ -46,16 +46,10 @@
 
         self.navigationViews = @[home, calendar, overview, groups, lists, profile, timeline, settings];
 
-        StorageService *storage = [StorageService new];
-        [storage downloadProfileImage:^(UIImage *image) {
-            if (image) {
-                self.profileImage = image;
-            }
-        }];
-
-        self.service = [DatabaseService new];
-        [self.service listenForTaskDataChangeFromFirebase];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(setupProfileImageAndFirebaseListeners)
+                                                     name:@"isInFirebase"
+                                                   object:nil];
     }
     return self;
 }
@@ -65,6 +59,25 @@
         _tabbarItems = @[@"CALENDAR", @"OVERVIEW", @"HOME", @"GROUPS", @"TIMELINE"];
     }
     return _tabbarItems;
+}
+
+- (void) setupProfileImageAndFirebaseListeners {
+
+    if ([FIRAuth auth].currentUser.uid) {
+        StorageService *storage = [StorageService new];
+        [storage downloadProfileImage:^(UIImage *image) {
+            if (image) {
+                self.profileImage = image;
+            }
+        }];
+
+        self.service = [DatabaseService new];
+        [self.service listenForTaskDataChangeFromFirebase];
+    }
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

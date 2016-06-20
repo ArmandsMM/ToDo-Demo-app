@@ -120,7 +120,7 @@ alpha:1.0]
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
     __block id weakSelf = self;
     menu.navVC.navCollectionVC.didSelect = ^(NSString *data) {
         [weakSelf checkVCfromNavigation:data];

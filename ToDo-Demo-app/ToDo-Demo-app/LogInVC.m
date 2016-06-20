@@ -65,6 +65,7 @@
              //[self dismissViewControllerAnimated:NO completion:nil];
 
              [[NSNotificationCenter defaultCenter] postNotificationName:@"didLogin" object:self];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
 
          } else {
              NSLog(@"<LogInVC> %@",[error.userInfo valueForKey:@"NSLocalizedDescription"]);
