@@ -32,12 +32,13 @@
 
 - (IBAction)logOutTapped:(id)sender {
     NSLog(@"log out tapped");
-    [Authenticator logOutWithCompletion:^(NSError *error) {
+//    Authenticator *auth = [Authenticator new];
+    [[Configuration sharedInstance].authenticator logOutWithCompletion:^(NSError *error) {
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         } else {
-//            [self removeFromParentViewController];
-//            [self.view removeFromSuperview];
+            [self removeFromParentViewController];
+            [self.view removeFromSuperview];
         }
     }];
 }

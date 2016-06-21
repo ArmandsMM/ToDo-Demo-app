@@ -26,7 +26,11 @@
 #pragma mark - Notifications
 
 - (IBAction)notificationSwitchToggled:(id)sender {
-    NSLog(@"%lu", (unsigned long)self.notificationsSwitch.state);
+    if (self.notificationsSwitch.isOn) {
+        NSLog(@"notifications is ON");
+    } else {
+        NSLog(@"notifications is OFF");
+    }
 }
 
 #pragma mark - TableView

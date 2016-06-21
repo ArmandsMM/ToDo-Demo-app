@@ -9,11 +9,19 @@
 #import <Foundation/Foundation.h>
 @import Firebase;
 
+@protocol loginDelegate <NSObject>
+- (BOOL) didLogin;
+@optional
+- (BOOL) didLogout;
+@end
+
 @interface Authenticator : NSObject
 
-+ (void) loginUser:(NSString *) email andPassword:(NSString *) password completion: (void (^) (NSError *error)) completionBlock;
-+ (void) logOutWithCompletion:(void (^)(NSError * error))completionBlock;
-+ (BOOL ) checkIfLoggedIn;
+@property (nonatomic, strong) id <loginDelegate> logInDelegate;
++ (void) configFirebase;
+- (void) loginUser:(NSString *) email andPassword:(NSString *) password completion: (void (^) (NSError *error)) completionBlock;
+- (void) logOutWithCompletion:(void (^)(NSError * error))completionBlock;
+- (BOOL ) checkIfLoggedIn;
 
 +(void) createUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *error))completionBlock ;
 

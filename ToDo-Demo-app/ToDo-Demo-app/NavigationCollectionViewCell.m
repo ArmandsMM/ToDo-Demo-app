@@ -12,7 +12,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3];
     return self;
 }
 

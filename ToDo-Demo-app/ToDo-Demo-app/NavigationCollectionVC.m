@@ -16,12 +16,24 @@
     [super viewDidLoad];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionView *navCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-
+    UICollectionView *navCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    navCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:navCollectionView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[v0]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:@{@"v0":navCollectionView}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v0]|"
+                                                                      options:0
+                                                                      metrics:nil
+                                                                        views:@{@"v0":navCollectionView}]];
     navCollectionView.delegate = self;
     navCollectionView.dataSource = self;
 
-    navCollectionView.backgroundColor = [UIColor darkGrayColor];
+    navCollectionView.scrollEnabled = YES;
+    navCollectionView.bounces = YES;
+
+    navCollectionView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.0];
 
     [navCollectionView registerClass:[NavigationCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
 
@@ -43,7 +55,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.view.frame.size.width/2-20, 100);
+    return CGSizeMake(self.view.frame.size.width/2-20, self.view.frame.size.height/5);
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {

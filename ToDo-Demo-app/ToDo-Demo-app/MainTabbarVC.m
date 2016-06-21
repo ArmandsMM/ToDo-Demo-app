@@ -9,7 +9,6 @@
 #import "MainTabbarVC.h"
 #import "TopMenu.h"
 #import "Configuration.h"
-#import "Authenticator.h"
 #import "LogInVC.h"
 #import "CreateVC.h"
 
@@ -19,25 +18,40 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
+@interface MainTabbarVC()
+
+@property (nonatomic, strong) TopMenu *menu;
+@property (nonatomic, strong) Configuration *config;
+//@property (nonatomic, strong) Authenticator *authenticator;
+@property (nonatomic, strong) UIButton *createNewButton;
+//@property (nonatomic, strong) UINavigationController *loginNVC;
+@property (nonatomic, strong) NavigationVC *navVC;
+
+@end
+
 @implementation MainTabbarVC {
-    TopMenu *menu;
-    Configuration *config;
+
     UIViewController *newViewController;
-    UIButton *createNewButton;
-    UINavigationController *loginNVC;
+    LogInVC *newVC;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self prepareConfiguration];
+    [Configuration sharedInstance].authenticator.logInDelegate = self;
+    if ([[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
+        [self didLogin];
+    }
 
     self.selectedIndex = 2;
 
     self.tabBar.backgroundColor = [UIColor darkGrayColor];
 
-    menu = [TopMenu new];
-    [self.view addSubview:menu];
-    [self configureTopMenuConstraints:menu];
+    self.menu = [TopMenu new];
+    [self.view addSubview:self.menu];
+    [self configureTopMenuConstraints:self.menu];
+    self.menu.navVC.navDelegate = self;
     
     self.delegate = self;
     [self updateTopMenuTitle];
@@ -50,13 +64,13 @@ alpha:1.0]
 #pragma mark - Create New button
 
 - (void) addCreateNewButton {
-    createNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [createNewButton addTarget:self action:@selector(showCreateNewView) forControlEvents:UIControlEventTouchUpInside];
-    [createNewButton setImage:[UIImage imageNamed:@"create-new-button.png"] forState:UIControlStateNormal];
-    createNewButton.imageView.layer.cornerRadius = 26;
+    self.createNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.createNewButton addTarget:self action:@selector(showCreateNewView) forControlEvents:UIControlEventTouchUpInside];
+    [self.createNewButton setImage:[UIImage imageNamed:@"create-new-button.png"] forState:UIControlStateNormal];
+    self.createNewButton.imageView.layer.cornerRadius = 26;
 
-    [self.view addSubview:createNewButton];
-    [self addConstraintsToCreateNewButton:createNewButton];
+    [self.view addSubview:self.createNewButton];
+    [self addConstraintsToCreateNewButton:self.createNewButton];
 }
 
 - (void) addConstraintsToCreateNewButton:(UIButton *) button {
@@ -89,22 +103,19 @@ alpha:1.0]
 }
 
 - (void) prepareConfiguration {
-//    config = [[Configuration sharedInstance] init];
-    config = [Configuration sharedInstance];
+    self.config = [Configuration sharedInstance];
 }
 
 #pragma mark - Login Check
 
 - (void) prepareLoginViewWithCompletion:(void (^)(BOOL))success {
 
-    if (![Authenticator checkIfLoggedIn]) {
+    if (![[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        LogInVC *newVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
-
+        newVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
         [self.view addSubview:newVC.view];
         [self addChildViewController:newVC];
         [self configureLogInViewConstraints:newVC.view];
-
 
         if (success != nil) {
             success(YES);
@@ -120,9 +131,9 @@ alpha:1.0]
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
+    
     __block id weakSelf = self;
-    menu.navVC.navCollectionVC.didSelect = ^(NSString *data) {
+    self.menu.navVC.navCollectionVC.didSelect = ^(NSString *data) {
         [weakSelf checkVCfromNavigation:data];
     };
 }
@@ -131,18 +142,18 @@ alpha:1.0]
     if (newViewController) {
         [newViewController.view removeFromSuperview];
         [newViewController removeFromParentViewController];
-        menu.topMenuTitle.text = item;
+        self.menu.topMenuTitle.text = item;
     }
-    if ([Authenticator checkIfLoggedIn]) {
-        NSInteger itemIndex = [config.navigationItems indexOfObject:item];
+    if ([[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
+        NSInteger itemIndex = [self.config.navigationItems indexOfObject:item];
         if (!(NSNotFound == itemIndex)) {
-            NSInteger tabbarItemIndex = [config.tabbarItems indexOfObject:item];
+            NSInteger tabbarItemIndex = [self.config.tabbarItems indexOfObject:item];
             if (!(NSNotFound == tabbarItemIndex)) {
-                self.selectedIndex = [config.tabbarItems indexOfObject:item];
+                self.selectedIndex = [self.config.tabbarItems indexOfObject:item];
                 [self updateTopMenuTitle];
             } else {
                 [self loadViewFromNavigation:itemIndex];
-                menu.topMenuTitle.text = item;
+                self.menu.topMenuTitle.text = item;
             }
         }
     } else {
@@ -151,7 +162,7 @@ alpha:1.0]
 }
 
 - (void) loadViewFromNavigation:(NSInteger) itemIndex {
-    newViewController = [config.navigationViews objectAtIndex:itemIndex];
+    newViewController = [self.config.navigationViews objectAtIndex:itemIndex];
     [self.view addSubview:newViewController.view];
     [self addChildViewController:newViewController];
     newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -161,23 +172,23 @@ alpha:1.0]
 - (void) updateTopMenuTitle {
     switch (self.selectedIndex) {
         case 0:
-            menu.topMenuTitle.text = @"Calendar";
+            self.menu.topMenuTitle.text = @"Calendar";
             break;
         case 1:
-            menu.topMenuTitle.text = @"Overview";
+            self.menu.topMenuTitle.text = @"Overview";
             break;
         case 2:
-            menu.topMenuTitle.text = @"Home";
+            self.menu.topMenuTitle.text = @"Home";
             break;
         case 3:
-            menu.topMenuTitle.text = @"Groups";
+            self.menu.topMenuTitle.text = @"Groups";
             break;
         case 4:
-            menu.topMenuTitle.text = @"Timeline";
+            self.menu.topMenuTitle.text = @"Timeline";
             break;
 
         default:
-            menu.topMenuTitle.text = @"ToDo Demo App";
+            self.menu.topMenuTitle.text = @"ToDo Demo App";
             break;
     }
 }
@@ -186,12 +197,8 @@ alpha:1.0]
     [self updateTopMenuTitle];
 }
 
-- (void) toggleMenuButton {
-    if (newViewController) {
-        [newViewController.view removeFromSuperview];
-        [newViewController removeFromParentViewController];
-    }
-    [self prepareLoginViewWithCompletion:nil];
+- (void)didDismissNavigation {
+    //NSLog(@"dismiss delegate working");
 }
 
 #pragma mark - Constraints
@@ -278,28 +285,40 @@ alpha:1.0]
                                                          multiplier:0.12 constant:0]];
 }
 
-#pragma mark - helper methods
+#pragma mark - loginDelegate
 
-- (void) awakeFromNib {
-    [super awakeFromNib];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didLogin)
-                                                 name:@"didLogin"
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(toggleMenuButton)
-                                                 name:@"toggleMenuButton"
-                                               object:nil];
+- (BOOL)didLogout {
+    NSLog(@"did logout delegate");
+    [self prepareLoginViewWithCompletion:nil];
+    return YES;
 }
 
-- (void) didLogin {
-    [self updateTopMenuTitle];
+- (BOOL)didLogin {
+    NSLog(@"did login delegate");
+    if (newVC) {
+        [newVC.view removeFromSuperview];
+        [newVC removeFromParentViewController];
+    }
+    self.menu.navVC.logOutbutton.hidden = NO;
+    [self setupProfileImageAndFirebaseListeners];
+    return YES;
 }
 
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void) setupProfileImageAndFirebaseListeners {
+
+    if ([FIRAuth auth].currentUser.uid) {
+        StorageService *storage = [StorageService new];
+        [storage downloadProfileImage:^(UIImage *image) {
+            if (image) {
+                [Configuration sharedInstance].profileImage = image;
+                self.menu.navVC.profileImageView.image = image;
+            }
+        }];
+
+        [Configuration sharedInstance].service = [DatabaseService new];
+        [[Configuration sharedInstance].service listenForTaskDataChangeFromFirebase];
+        NSLog(@"Firebase listeners setup");
+    }
 }
 
 @end

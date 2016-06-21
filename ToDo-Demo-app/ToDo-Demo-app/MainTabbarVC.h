@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavigationVC.h"
+#import "Authenticator.h"
 
-@interface MainTabbarVC : UITabBarController  <UITabBarControllerDelegate>
+@interface MainTabbarVC : UITabBarController  <UITabBarControllerDelegate, navigationDelegate, loginDelegate>
 
 @end

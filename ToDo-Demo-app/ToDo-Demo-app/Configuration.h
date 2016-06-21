@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DatabaseService.h"
 #import "StorageService.h"
+#import "Authenticator.h"
 
 @interface Configuration : NSObject
 
@@ -19,8 +20,10 @@
 @property (nonatomic, strong) DatabaseService *service;
 @property (nonatomic, strong) UIImage *profileImage;
 
+@property (nonatomic, strong) Authenticator *authenticator;
+
 + (instancetype)sharedInstance;
 
-- (void) setupProfileImageAndFirebaseListeners;
+//- (void) setupProfileImageAndFirebaseListeners;
 
 @end

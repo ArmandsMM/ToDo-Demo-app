@@ -7,6 +7,7 @@
 //
 
 #import "LogInVC.h"
+#import "Configuration.h"
 
 @interface LogInVC()
 @property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -56,16 +57,19 @@
 
 - (IBAction)loginButtonTapped:(id)sender {
     self.activityIndicator.hidden = NO;
-    [Authenticator loginUser:self.usernameTextField.text andPassword:self.passwordTextField.text completion:^(NSError *error)
+//    Authenticator *auth = [Authenticator new];
+//    auth.logInDelegate = self;
+    [[Configuration sharedInstance].authenticator loginUser:self.usernameTextField.text andPassword:self.passwordTextField.text completion:^(NSError *error)
      {
          if (!error) {
+             
              [self.view removeFromSuperview];
              [self removeFromParentViewController];
 
-             //[self dismissViewControllerAnimated:NO completion:nil];
+//             [self dismissViewControllerAnimated:NO completion:nil];
 
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"didLogin" object:self];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
+//             [[NSNotificationCenter defaultCenter] postNotificationName:@"didLogin" object:self];
+//             [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
 
          } else {
              NSLog(@"<LogInVC> %@",[error.userInfo valueForKey:@"NSLocalizedDescription"]);
@@ -90,6 +94,11 @@
 
 
 }
+
+//#pragma mark - loginDelegate
+//- (BOOL)didLogin {
+//    return [Configuration sharedInstance].didLogin;
+//}
 
 #pragma mark - UITextField delegate
 

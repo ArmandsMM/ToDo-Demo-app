@@ -11,14 +11,23 @@
 #import "Authenticator.h"
 #import "Configuration.h"
 
-@implementation NavigationVC {
-    UIButton *logOutbutton;
-}
+@implementation NavigationVC
 
 -(instancetype)init {
     self  = [super init];
     if (self) {
-        self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.7];
+//        self.view.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
+        UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg.png"]];
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self.view addSubview:backgroundImageView];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[v0]|"
+                                                                         options:0
+                                                                         metrics:nil
+                                                                            views:@{@"v0":backgroundImageView}]];
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v0]|"
+                                                                          options:0
+                                                                          metrics:nil
+                                                                            views:@{@"v0":backgroundImageView}]];
         [self addCloseButton];
         [self addProfileImage];
         [self addNavigationCollectionView];
@@ -28,15 +37,16 @@
 }
 
 - (void) addLogOutButton {
-    if ([Authenticator checkIfLoggedIn]) {
-        logOutbutton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [logOutbutton setImage:[UIImage imageNamed:@"log-out.png"] forState:UIControlStateNormal];
-        [logOutbutton addTarget:self action:@selector(logOutUser) forControlEvents:UIControlEventTouchUpInside];
+//    Authenticator *authenticator = [Authenticator new];
+    self.logOutbutton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.logOutbutton setImage:[UIImage imageNamed:@"log-out.png"] forState:UIControlStateNormal];
+    [self.logOutbutton addTarget:self action:@selector(logOutUser) forControlEvents:UIControlEventTouchUpInside];
 
-        [self.view addSubview:logOutbutton];
-        [self configureLogOutViewConstraints:logOutbutton];
+    [self.view addSubview:self.logOutbutton];
+    [self configureLogOutViewConstraints:self.logOutbutton];
 
-        logOutbutton.hidden = NO;
+    if ([[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
+        self.logOutbutton.hidden = NO;
     }
 }
 
@@ -48,14 +58,14 @@
 }
 
 - (void) addProfileImage {
-    UIImageView *imageView = [UIImageView new];
-    imageView.backgroundColor = [UIColor purpleColor];
-    [imageView setImage:[Configuration sharedInstance].profileImage];
-    [self.view addSubview:imageView];
-    [self configureProfileImageConstraints:imageView];
+    self.profileImageView = [UIImageView new];
+    self.profileImageView.backgroundColor = [UIColor purpleColor];
+    [self.profileImageView setImage:[Configuration sharedInstance].profileImage];
+    [self.view addSubview:self.profileImageView];
+    [self configureProfileImageConstraints:self.profileImageView];
 
-    imageView.layer.cornerRadius = 20;
-    imageView.layer.masksToBounds = YES;
+    self.profileImageView.layer.cornerRadius = 20;
+    self.profileImageView.layer.masksToBounds = YES;
 }
 
 - (void) addCloseButton {
@@ -72,18 +82,20 @@
 }
 
 - (void) logOutUser {
-    [Authenticator logOutWithCompletion:^(NSError *error) {
+//    Authenticator *auth = [Authenticator new];
+    [[Configuration sharedInstance].authenticator logOutWithCompletion:^(NSError *error) {
         if (!error) {
-            logOutbutton.hidden = YES;
+            self.logOutbutton.hidden = YES;
             [self dismissNavigationVC];
         }
     }];
 }
 
 - (void) dismissNavigationVC {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleMenuButton" object:self];
-    [self dismissViewControllerAnimated:YES completion:^{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleMenuButton" object:self];
 
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.navDelegate didDismissNavigation];
     }];
 }
 

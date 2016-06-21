@@ -14,15 +14,21 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [FIRApp configure];
+        //[FIRApp configure];
     }
     return self;
 }
 
-+ (BOOL ) checkIfLoggedIn {
++ (void) configFirebase {
+    [FIRApp configure];
+}
+
+- (BOOL ) checkIfLoggedIn {
     if ([FIRAuth auth].currentUser) {
+        //[self.logInDelegate didLogin];
         return YES;
     }
+    //[self.logInDelegate didLogout];
     return NO;
 }
 
@@ -44,16 +50,18 @@
 }
 
 
-+ (void) loginUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *))completionBlock {
+- (void) loginUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *))completionBlock {
 
     [[FIRAuth auth] signInWithEmail:email password:password completion:^(FIRUser * _Nullable user, NSError * _Nullable error) {
         if (error) {
             //NSLog(@"<Authenticator> Couldn't log in: %@", error);
             if (completionBlock != nil) {
                 completionBlock(error);
+                
             }
         } else {
             //NSLog(@"<Authenticator> Yay! we are in: %@", user.email);
+            [self.logInDelegate didLogin];
             if (completionBlock != nil) {
                 completionBlock(nil);
             }
@@ -62,10 +70,11 @@
     }];
 }
 
-+ (void) logOutWithCompletion:(void (^)(NSError *))completionBlock {
+- (void) logOutWithCompletion:(void (^)(NSError *))completionBlock {
     NSError *error;
     [[FIRAuth auth] signOut:&error];
     if (!error) {
+        [self.logInDelegate didLogout];
         if (completionBlock !=  nil) {
             completionBlock(nil);
             NSLog(@"<Authenticator> %@",@"logged out");

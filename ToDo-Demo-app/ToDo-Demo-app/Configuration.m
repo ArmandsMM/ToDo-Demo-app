@@ -46,10 +46,12 @@
 
         self.navigationViews = @[home, calendar, overview, groups, lists, profile, timeline, settings];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(setupProfileImageAndFirebaseListeners)
-                                                     name:@"isInFirebase"
-                                                   object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//                                                 selector:@selector(setupProfileImageAndFirebaseListeners)
+//                                                     name:@"isInFirebase"
+//                                                   object:nil];
+
+        //[self didLogin];
     }
     return self;
 }
@@ -61,23 +63,39 @@
     return _tabbarItems;
 }
 
-- (void) setupProfileImageAndFirebaseListeners {
-
-    if ([FIRAuth auth].currentUser.uid) {
-        StorageService *storage = [StorageService new];
-        [storage downloadProfileImage:^(UIImage *image) {
-            if (image) {
-                self.profileImage = image;
-            }
-        }];
-
-        self.service = [DatabaseService new];
-        [self.service listenForTaskDataChangeFromFirebase];
+- (Authenticator *) authenticator {
+    if (!_authenticator) {
+        _authenticator = [Authenticator new];
+        //_authenticator.logInDelegate = self;
     }
+    return _authenticator;
 }
 
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
+//#pragma mark - loginDelegate
+//
+//- (BOOL)didLogin {
+//    [self setupProfileImageAndFirebaseListeners];
+//    return YES;
+//}
+//
+//- (void) setupProfileImageAndFirebaseListeners {
+//
+//    if ([FIRAuth auth].currentUser.uid) {
+//        StorageService *storage = [StorageService new];
+//        [storage downloadProfileImage:^(UIImage *image) {
+//            if (image) {
+//                self.profileImage = image;
+//            }
+//        }];
+//
+//        self.service = [DatabaseService new];
+//        [self.service listenForTaskDataChangeFromFirebase];
+//        NSLog(@"Firebase listeners setup");
+//    }
+//}
+
+//- (void) dealloc {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
 @end

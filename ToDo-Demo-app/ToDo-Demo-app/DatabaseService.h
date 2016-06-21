@@ -13,7 +13,6 @@
 @interface DatabaseService : NSObject
 
 @property (nonatomic, strong) FIRDatabaseReference *ref;
-//@property (nonatomic, strong) FIRStorageReference *storageRef;
 
 - (void) saveProfileDataToDatabaseWithUsername:(NSString *) username email:(NSString *) email birthday:(NSString *) birthday imagePath:(NSString *) path;
 

@@ -47,11 +47,17 @@ alpha:1.0]
 }
 
 - (void) showNavigationVC {
-    self.navVC = [[NavigationVC alloc] init];
+//    self.navVC = [[NavigationVC alloc] init];
     self.navVC.modalPresentationStyle = UIModalPresentationFullScreen;
     self.navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self.window.rootViewController presentViewController:self.navVC animated:YES completion:^{
     }];
+}
+- (NavigationVC *) navVC {
+    if (!_navVC) {
+        _navVC = [NavigationVC new];
+    }
+    return _navVC;
 }
 
 - (void) configureMenuButtonConstraints {
