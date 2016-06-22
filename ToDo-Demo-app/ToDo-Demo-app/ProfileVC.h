@@ -10,5 +10,6 @@
 
 @interface ProfileVC : UIViewController
 
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end

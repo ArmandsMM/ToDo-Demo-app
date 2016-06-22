@@ -12,6 +12,8 @@
 #import "LogInVC.h"
 #import "CreateVC.h"
 
+#import "KeychainItemWrapper.h"
+
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
@@ -21,9 +23,11 @@ alpha:1.0]
 @interface MainTabbarVC()
 
 @property (nonatomic, strong) TopMenu *menu;
-@property (nonatomic, strong) Configuration *config;
+//@property (nonatomic, strong) Configuration *config;
 @property (nonatomic, strong) UIButton *createNewButton;
 @property (nonatomic, strong) NavigationVC *navVC;
+
+@property BOOL didPressLogout;
 
 @end
 
@@ -31,6 +35,13 @@ alpha:1.0]
 
     UIViewController *newViewController;
     LogInVC *newVC;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    if ([self checkForSavedKeychainCredentials] && !self.didPressLogout) {
+        [newVC autoLogin];
+    }
 }
 
 - (void)viewDidLoad {
@@ -101,7 +112,7 @@ alpha:1.0]
 }
 
 - (void) prepareConfiguration {
-    self.config = [Configuration sharedInstance];
+//    self.config = [Configuration sharedInstance];
 }
 
 #pragma mark - Login Check
@@ -125,6 +136,18 @@ alpha:1.0]
     }
 }
 
+- (BOOL) checkForSavedKeychainCredentials {
+    KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
+    if ([keychainItem objectForKey:(__bridge id)kSecAttrAccount] && [keychainItem objectForKey:(__bridge id)kSecValueData]) {
+        NSString *emailText = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
+        NSString *passwordText = [keychainItem objectForKey:(__bridge id)kSecValueData];
+        if (emailText != nil && passwordText != nil) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark - Page Navigation from top menu
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -143,11 +166,11 @@ alpha:1.0]
         self.menu.topMenuTitle.text = item;
     }
     if ([[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
-        NSInteger itemIndex = [self.config.navigationItems indexOfObject:item];
+        NSInteger itemIndex = [[Configuration sharedInstance].navigationItems indexOfObject:item];
         if (!(NSNotFound == itemIndex)) {
-            NSInteger tabbarItemIndex = [self.config.tabbarItems indexOfObject:item];
+            NSInteger tabbarItemIndex = [[Configuration sharedInstance].tabbarItems indexOfObject:item];
             if (!(NSNotFound == tabbarItemIndex)) {
-                self.selectedIndex = [self.config.tabbarItems indexOfObject:item];
+                self.selectedIndex = [[Configuration sharedInstance].tabbarItems indexOfObject:item];
                 [self updateTopMenuTitle];
             } else {
                 [self loadViewFromNavigation:itemIndex];
@@ -160,7 +183,7 @@ alpha:1.0]
 }
 
 - (void) loadViewFromNavigation:(NSInteger) itemIndex {
-    newViewController = [self.config.navigationViews objectAtIndex:itemIndex];
+    newViewController = [[Configuration sharedInstance].navigationViews objectAtIndex:itemIndex];
     [self.view addSubview:newViewController.view];
     [self addChildViewController:newViewController];
     newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -287,12 +310,16 @@ alpha:1.0]
 
 - (BOOL)didLogout {
     NSLog(@"did logout delegate");
+    self.didPressLogout = YES;
+    [[Configuration sharedInstance].service deleteAllLocalTasks];
     [self prepareLoginViewWithCompletion:nil];
     return YES;
 }
 
 - (BOOL)didLogin {
     NSLog(@"did login delegate");
+    self.selectedIndex = 0;
+    self.selectedIndex = 2;
     if (newVC) {
         [newVC.view removeFromSuperview];
         [newVC removeFromParentViewController];

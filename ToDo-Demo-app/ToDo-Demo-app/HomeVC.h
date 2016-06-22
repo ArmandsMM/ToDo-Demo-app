@@ -11,5 +11,7 @@
 
 @interface HomeVC : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, taskDownloadDelegate>
 
+@property (strong, nonatomic) NSArray *tasks;
+- (void) reloadLocalTasks;
 
 @end

@@ -37,6 +37,7 @@
         self.usernameTextField.text = emailText;
         self.passwordTextField.text = passwordText;
         NSLog(@"username and pass loaded from keychain");
+
     } else {
 //        self.usernameTextField.text = @"armandsgarbagemail@gmail.com";
 //        self.passwordTextField.text = @"qwerty";
@@ -47,11 +48,6 @@
 
     self.headerView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
     self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
-
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(checkNotificationFromRegistration:)
-//                                                 name:@"didConnect"
-//                                               object:nil];
 
     [self addKeyboardToolBar];
 
@@ -66,6 +62,10 @@
     self.passwordTextField.text = [[note userInfo] valueForKey:@"password"];
 
     NSLog(@"%@ , %@", [[note userInfo] valueForKey:@"email"], [[note userInfo] valueForKey:@"password"]);
+}
+
+- (void) autoLogin {
+    [self loginButtonTapped:nil];
 }
 
 - (IBAction)loginButtonTapped:(id)sender {

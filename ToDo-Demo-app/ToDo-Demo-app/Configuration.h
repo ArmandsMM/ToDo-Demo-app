@@ -11,6 +11,15 @@
 #import "StorageService.h"
 #import "Authenticator.h"
 
+#import "HomeVC.h"
+#import "CalendarVC.h"
+#import "OverviewVC.h"
+#import "GroupsVC.h"
+#import "ListsVC.h"
+#import "ProfileVC.h"
+#import "TimelineVC.h"
+#import "SettingsVC.h"
+
 @interface Configuration : NSObject
 
 @property (nonatomic, strong) NSArray *tabbarItems;
@@ -21,6 +30,15 @@
 @property (nonatomic, strong) UIImage *profileImage;
 
 @property (nonatomic, strong) Authenticator *authenticator;
+
+@property (nonatomic, strong) HomeVC *home;
+@property (nonatomic, strong) CalendarVC *calendar;
+@property (nonatomic, strong) OverviewVC *overview;
+@property (nonatomic, strong) GroupsVC *groups;
+@property (nonatomic, strong) ListsVC *lists;
+@property (nonatomic, strong) ProfileVC *profile;
+@property (nonatomic, strong) TimelineVC *timeline;
+@property (nonatomic, strong) SettingsVC *settings;
 
 + (instancetype)sharedInstance;
 

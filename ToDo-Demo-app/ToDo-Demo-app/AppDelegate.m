@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Authenticator.h"
+#import "Configuration.h"
 
 @interface AppDelegate ()
 
@@ -18,8 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    //[FIRApp configure];
-    [Authenticator configFirebase];
+
+    [[Configuration sharedInstance].authenticator configFirebase];
     return YES;
 }
 

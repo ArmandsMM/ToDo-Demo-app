@@ -18,7 +18,7 @@
 @interface Authenticator : NSObject
 
 @property (nonatomic, strong) id <loginDelegate> logInDelegate;
-+ (void) configFirebase;
+- (void) configFirebase;
 - (void) loginUser:(NSString *) email andPassword:(NSString *) password completion: (void (^) (NSError *error)) completionBlock;
 - (void) logOutWithCompletion:(void (^)(NSError * error))completionBlock;
 - (BOOL ) checkIfLoggedIn;

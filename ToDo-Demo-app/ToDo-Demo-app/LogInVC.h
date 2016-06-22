@@ -11,4 +11,6 @@
 
 @interface LogInVC : UIViewController <UITextFieldDelegate>
 
+- (void) autoLogin;
+
 @end

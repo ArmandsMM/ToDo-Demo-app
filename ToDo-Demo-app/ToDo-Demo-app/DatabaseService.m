@@ -138,24 +138,54 @@
     }
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"tasks"];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"/tasks"];
 
     [NSKeyedArchiver archiveRootObject:dataDict toFile:filePath];
+    //NSLog(@"task: %@ saved at path: %@", dataDict, filePath);
 }
 
 - (NSDictionary *) loadLocalTasks {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"tasks"];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"/tasks"];
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSData *data = [NSData dataWithContentsOfFile:filePath];
         NSDictionary *loadedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        //NSLog(@"loaded data: %@", loadedData);
         if ([loadedData objectForKey:@"tasks"] != nil) {
             return loadedData;
         }
     }
     return nil;
 
+}
+
+- (NSArray *) loadLocalTasksForUser:(NSString *) userID {
+    NSMutableArray *userLocalTasks = [NSMutableArray new];
+    NSDictionary *allLocalTaks = [self loadLocalTasks];
+    if (allLocalTaks != nil) {
+        for (NSDictionary *task in [allLocalTaks objectForKey:@"tasks"]) {
+            //NSLog(@"loaded user tasks: %@", task);
+            if ([[task valueForKey:@"task-author"] isEqualToString:userID]) {
+                [userLocalTasks addObject:task];
+            }
+        }
+    }
+
+    return userLocalTasks.copy;
+}
+
+- (void) deleteAllLocalTasks {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectoryPath stringByAppendingString:@"/tasks"];
+    NSError *error;
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
+    if (!success) {
+        NSLog(@"delete: %@", error.localizedDescription);
+    } else {
+        NSLog(@"deleted successifully");
+    }
 }
 
 @end

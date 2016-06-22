@@ -7,12 +7,14 @@
 //
 
 #import "ProfileVC.h"
+#import "Configuration.h"
 
 @implementation ProfileVC
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     self.view.backgroundColor = [UIColor darkGrayColor];
+    self.nameLabel.text = [NSString stringWithFormat:@"Hi! %@",[FIRAuth auth].currentUser.email];
 }
 
 @end

@@ -19,8 +19,6 @@
 
 @property (strong, nonatomic) NSDate *date;
 
-@property (strong, nonatomic) NSArray *tasks;
-
 @end
 
 @implementation HomeVC
@@ -30,7 +28,9 @@
     [self setupBackgroundColorsForViews];
     self.date = [NSDate date];
 
-    [Configuration sharedInstance].service.downloadDelegate = self;
+//    DatabaseService *service = [DatabaseService new];
+//    service.downloadDelegate = self;
+//    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 
     self.homeCollectionView.delegate = self;
@@ -39,6 +39,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
+    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 }
 
@@ -109,15 +110,19 @@
     [self.homeCollectionView reloadData];
 }
 
-- (NSArray *) refreshLocalTasks {
-//    DatabaseService *service = [DatabaseService new];
-    NSDictionary *refreshedDict = [[Configuration sharedInstance].service loadLocalTasks];
-    NSMutableArray *tempTaskArray= [NSMutableArray new];
-    for (NSDictionary* item in [refreshedDict objectForKey:@"tasks"]) {
-        [tempTaskArray addObject:item];
-    }
+//- (NSArray *) refreshLocalTasks {
+//    NSDictionary *refreshedDict = [[Configuration sharedInstance].service loadLocalTasks];
+//    NSMutableArray *tempTaskArray= [NSMutableArray new];
+//    for (NSDictionary* item in [refreshedDict objectForKey:@"tasks"]) {
+//        [tempTaskArray addObject:item];
+//    }
+//
+//    return [self pickTasks:tempTaskArray ForDate:self.date];
+//}
 
-    return [self pickTasks:tempTaskArray ForDate:self.date];
+- (NSArray *) refreshLocalTasks {
+    NSArray *refreshedDict = [[Configuration sharedInstance].service loadLocalTasksForUser:[FIRAuth auth].currentUser.uid];
+    return [self pickTasks:refreshedDict ForDate:self.date];
 }
 
 - (NSArray *) pickTasks:(NSArray *) tasks ForDate: (NSDate *) date {

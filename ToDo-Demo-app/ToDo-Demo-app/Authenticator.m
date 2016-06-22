@@ -19,7 +19,7 @@
     return self;
 }
 
-+ (void) configFirebase {
+- (void) configFirebase {
     [FIRApp configure];
 }
 

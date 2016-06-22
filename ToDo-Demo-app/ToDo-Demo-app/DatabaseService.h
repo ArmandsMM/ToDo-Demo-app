@@ -30,5 +30,8 @@
 - (void) listenForTaskDataChangeFromFirebase;
 
 - (NSDictionary *) loadLocalTasks;
+- (NSArray *) loadLocalTasksForUser:(NSString *) userID;
+
+- (void) deleteAllLocalTasks;
 
 @end
