@@ -22,9 +22,7 @@ alpha:1.0]
 
 @property (nonatomic, strong) TopMenu *menu;
 @property (nonatomic, strong) Configuration *config;
-//@property (nonatomic, strong) Authenticator *authenticator;
 @property (nonatomic, strong) UIButton *createNewButton;
-//@property (nonatomic, strong) UINavigationController *loginNVC;
 @property (nonatomic, strong) NavigationVC *navVC;
 
 @end
@@ -306,19 +304,17 @@ alpha:1.0]
 
 - (void) setupProfileImageAndFirebaseListeners {
 
-    if ([FIRAuth auth].currentUser.uid) {
-        StorageService *storage = [StorageService new];
-        [storage downloadProfileImage:^(UIImage *image) {
-            if (image) {
-                [Configuration sharedInstance].profileImage = image;
-                self.menu.navVC.profileImageView.image = image;
-            }
-        }];
+    StorageService *storage = [StorageService new];
+    [storage downloadProfileImage:^(UIImage *image) {
+        if (image) {
+            [Configuration sharedInstance].profileImage = image;
+            self.menu.navVC.profileImageView.image = image;
+        }
+    }];
 
-        [Configuration sharedInstance].service = [DatabaseService new];
-        [[Configuration sharedInstance].service listenForTaskDataChangeFromFirebase];
-        NSLog(@"Firebase listeners setup");
-    }
+    [Configuration sharedInstance].service = [DatabaseService new];
+    [[Configuration sharedInstance].service listenForTaskDataChangeFromFirebase];
+    NSLog(@"Firebase listeners setup");
 }
 
 @end

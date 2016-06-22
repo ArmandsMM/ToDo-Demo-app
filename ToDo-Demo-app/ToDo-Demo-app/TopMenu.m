@@ -31,14 +31,11 @@ alpha:1.0]
 }
 
 - (void) addMenuButton {
-//    self.menuButton = [UIView new];
-//    self.menuButton.backgroundColor = [UIColor darkGrayColor];
     self.menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.menuButton addTarget:self action:@selector(showNavigationVC) forControlEvents:UIControlEventTouchUpInside];
     [self.menuButton setImage:[UIImage imageNamed:@"navigation.png"] forState:UIControlStateNormal];
     [self addSubview:self.menuButton];
     [self configureMenuButtonConstraints];
-    //[self addGestureRecognizerToMenuButton];
 }
 
 - (void) addGestureRecognizerToMenuButton {
@@ -47,7 +44,6 @@ alpha:1.0]
 }
 
 - (void) showNavigationVC {
-//    self.navVC = [[NavigationVC alloc] init];
     self.navVC.modalPresentationStyle = UIModalPresentationFullScreen;
     self.navVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self.window.rootViewController presentViewController:self.navVC animated:YES completion:^{
@@ -87,10 +83,6 @@ alpha:1.0]
                                                                 metrics:nil
                                                                   views:@{@"v0":self.topMenuTitle}]];
 
-//    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[v0]|"
-//                                                                 options:0
-//                                                                 metrics:nil
-//                                                                   views:@{@"v0":self.topMenuTitle}]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.topMenuTitle
                                                      attribute:NSLayoutAttributeCenterY
                                                      relatedBy:NSLayoutRelationEqual

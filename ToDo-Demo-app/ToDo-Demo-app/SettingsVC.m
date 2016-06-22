@@ -62,6 +62,8 @@
                                                                                  views:@{@"v0":self.settingsTVC.view}]];
     self.settingsTVC.view.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
     self.containerView.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
+    self.settingsTVC.tableView.separatorColor = [UIColor lightGrayColor];
+    self.settingsTVC.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
 @end

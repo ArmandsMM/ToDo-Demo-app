@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DatabaseService.h"
 
-@interface HomeVC : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface HomeVC : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, taskDownloadDelegate>
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "LogInVC.h"
 #import "Configuration.h"
+#import "KeychainItemWrapper.h"
 
 @interface LogInVC()
 @property (strong, nonatomic) IBOutlet UITextField *usernameTextField;
@@ -29,16 +30,28 @@
     self.passwordTextField.delegate = self;
     self.passwordTextField.secureTextEntry = YES;
 
-    self.usernameTextField.text = @"armandsgarbagemail@gmail.com";
-    self.passwordTextField.text = @"qwerty";
+    KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
+    if ([keychainItem objectForKey:(__bridge id)kSecAttrAccount] && [keychainItem objectForKey:(__bridge id)kSecValueData]) {
+        NSString *emailText = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
+        NSString *passwordText = [keychainItem objectForKey:(__bridge id)kSecValueData];
+        self.usernameTextField.text = emailText;
+        self.passwordTextField.text = passwordText;
+        NSLog(@"username and pass loaded from keychain");
+    } else {
+//        self.usernameTextField.text = @"armandsgarbagemail@gmail.com";
+//        self.passwordTextField.text = @"qwerty";
+        self.usernameTextField.text = @"";
+        self.passwordTextField.text = @"";
+
+    }
 
     self.headerView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.3];
     self.containerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(checkNotificationFromRegistration:)
-                                                 name:@"didConnect"
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(checkNotificationFromRegistration:)
+//                                                 name:@"didConnect"
+//                                               object:nil];
 
     [self addKeyboardToolBar];
 
@@ -57,20 +70,17 @@
 
 - (IBAction)loginButtonTapped:(id)sender {
     self.activityIndicator.hidden = NO;
-//    Authenticator *auth = [Authenticator new];
-//    auth.logInDelegate = self;
     [[Configuration sharedInstance].authenticator loginUser:self.usernameTextField.text andPassword:self.passwordTextField.text completion:^(NSError *error)
      {
          if (!error) {
-             
+
+             KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
+                 [keychainItem setObject:self.passwordTextField.text forKey:(__bridge id)kSecValueData];
+                 [keychainItem setObject:self.usernameTextField.text forKey:(__bridge id)kSecAttrAccount];
+
              [self.view removeFromSuperview];
              [self removeFromParentViewController];
-
 //             [self dismissViewControllerAnimated:NO completion:nil];
-
-//             [[NSNotificationCenter defaultCenter] postNotificationName:@"didLogin" object:self];
-//             [[NSNotificationCenter defaultCenter] postNotificationName:@"isInFirebase" object:self];
-
          } else {
              NSLog(@"<LogInVC> %@",[error.userInfo valueForKey:@"NSLocalizedDescription"]);
              [self showAlert:[error.userInfo valueForKey:@"NSLocalizedDescription"]];
@@ -94,11 +104,6 @@
 
 
 }
-
-//#pragma mark - loginDelegate
-//- (BOOL)didLogin {
-//    return [Configuration sharedInstance].didLogin;
-//}
 
 #pragma mark - UITextField delegate
 

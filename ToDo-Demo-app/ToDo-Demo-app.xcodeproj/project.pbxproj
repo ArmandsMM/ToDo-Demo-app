@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
 		C71569231D17F8530099B9D0 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C71569221D17F8530099B9D0 /* SettingsTVC.m */; };
+		C71569281D1969180099B9D0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71569271D1969180099B9D0 /* Security.framework */; };
+		C715692B1D1969580099B9D0 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C715692A1D1969580099B9D0 /* KeychainItemWrapper.m */; };
 		C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55211D0E9F4D0031E1D5 /* StorageService.m */; };
 		C73B55251D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */; };
 		C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55271D11826B0031E1D5 /* HomeCollectionViewCell.m */; };
@@ -45,6 +47,9 @@
 		563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.debug.xcconfig"; sourceTree = "<group>"; };
 		C71569211D17F8530099B9D0 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		C71569221D17F8530099B9D0 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
+		C71569271D1969180099B9D0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C71569291D1969580099B9D0 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		C715692A1D1969580099B9D0 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
 		C73B55201D0E9F4D0031E1D5 /* StorageService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		C73B55211D0E9F4D0031E1D5 /* StorageService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StorageService.m; sourceTree = "<group>"; };
 		C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldWithIBInspectiblePlaceholder.h; sourceTree = "<group>"; };
@@ -105,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71569281D1969180099B9D0 /* Security.framework in Frameworks */,
 				8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +130,7 @@
 		3F89A35C003F7A9AA60B0F3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C71569271D1969180099B9D0 /* Security.framework */,
 				44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */,
 			);
 			name = Frameworks;
@@ -231,6 +238,8 @@
 				C7EAD86C1CFC28EF0085CFF4 /* Supporting Files */,
 				C73B55231D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.h */,
 				C73B55241D0FD92F0031E1D5 /* TextFieldWithIBInspectiblePlaceholder.m */,
+				C71569291D1969580099B9D0 /* KeychainItemWrapper.h */,
+				C715692A1D1969580099B9D0 /* KeychainItemWrapper.m */,
 			);
 			path = "ToDo-Demo-app";
 			sourceTree = "<group>";
@@ -385,6 +394,7 @@
 				C7D0B5421CFEF10F0023A256 /* NavigationCollectionViewCell.m in Sources */,
 				C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */,
 				C7D0B5521D0027180023A256 /* CreateVC.m in Sources */,
+				C715692B1D1969580099B9D0 /* KeychainItemWrapper.m in Sources */,
 				C7D0B54F1D0026DE0023A256 /* OverviewVC.m in Sources */,
 				C7D0B5581D0027350023A256 /* TimelineVC.m in Sources */,
 				C7EAD86E1CFC28EF0085CFF4 /* main.m in Sources */,

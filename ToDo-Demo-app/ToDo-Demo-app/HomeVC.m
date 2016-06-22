@@ -7,7 +7,7 @@
 //
 
 #import "HomeVC.h"
-#import "DatabaseService.h"
+//#import "DatabaseService.h"
 #import "Configuration.h"
 #import "HomeCollectionViewCell.h"
 
@@ -30,10 +30,16 @@
     [self setupBackgroundColorsForViews];
     self.date = [NSDate date];
 
+    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 
     self.homeCollectionView.delegate = self;
     self.homeCollectionView.dataSource = self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    [self reloadLocalTasks];
 }
 
 #pragma mark - Date Labels
@@ -93,10 +99,10 @@
     self.view.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
     self.homeCollectionView.backgroundColor = [[UIColor clearColor] colorWithAlphaComponent:0.0];
 }
+
 #pragma mark - Tasks
 
 - (void) reloadLocalTasks {
-
     self.tasks = [NSArray new];
     self.tasks = [self refreshLocalTasks];
     [self updateTaskCountLabel];
@@ -104,8 +110,8 @@
 }
 
 - (NSArray *) refreshLocalTasks {
-    DatabaseService *service = [DatabaseService new];
-    NSDictionary *refreshedDict = [service loadLocalTasks];
+//    DatabaseService *service = [DatabaseService new];
+    NSDictionary *refreshedDict = [[Configuration sharedInstance].service loadLocalTasks];
     NSMutableArray *tempTaskArray= [NSMutableArray new];
     for (NSDictionary* item in [refreshedDict objectForKey:@"tasks"]) {
         [tempTaskArray addObject:item];
@@ -164,24 +170,11 @@
     return UIEdgeInsetsMake(0, 15, 10, 15);
 }
 
-#pragma mark - Notifications
+#pragma mark - taskDownload Delegate
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reloadLocalTasks)
-//                                                 name:@"didCreateNewTask"
-//                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadLocalTasks)
-                                                 name:@"taskDownloadedAndSaved"
-                                               object:nil];
-
-}
-
-- (void) dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)taskDownloaded {
+    NSLog(@"task delegate working");
+    [self reloadLocalTasks];
 }
 
 @end

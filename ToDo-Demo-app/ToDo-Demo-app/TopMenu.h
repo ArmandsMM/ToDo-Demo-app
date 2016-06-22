@@ -12,9 +12,7 @@
 @interface TopMenu : UIView
 
 @property (nonatomic, strong) UILabel *topMenuTitle;
-//@property (nonatomic, strong) UIView *menuButton;
 @property (nonatomic, strong) UIButton *menuButton;
-
 @property (nonatomic, strong) NavigationVC *navVC;
 
 - (instancetype) init;

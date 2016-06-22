@@ -82,7 +82,6 @@
 }
 
 - (void) logOutUser {
-//    Authenticator *auth = [Authenticator new];
     [[Configuration sharedInstance].authenticator logOutWithCompletion:^(NSError *error) {
         if (!error) {
             self.logOutbutton.hidden = YES;
@@ -92,8 +91,6 @@
 }
 
 - (void) dismissNavigationVC {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleMenuButton" object:self];
-
     [self dismissViewControllerAnimated:YES completion:^{
         [self.navDelegate didDismissNavigation];
     }];

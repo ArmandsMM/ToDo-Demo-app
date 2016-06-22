@@ -10,6 +10,7 @@
 
 #import "DatabaseService.h"
 #import "StorageService.h"
+#import "KeychainItemWrapper.h"
 
 @interface RegistrationVC ()
 
@@ -73,10 +74,10 @@
             [service saveProfileDataToDatabaseWithUsername:self.usernameTextField.text email:self.emailTextField.text birthday:self.birthdayTextField.text imagePath:imagePath];
 
             [self dismissViewControllerAnimated:YES completion:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"didConnect"
-                                                                    object:nil
-                                                                  userInfo:@{@"email":self.emailTextField.text,
-                                                                             @"password":self.passwordTextField.text}];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"didConnect"
+//                                                                    object:nil
+//                                                                  userInfo:@{@"email":self.emailTextField.text,
+//                                                                             @"password":self.passwordTextField.text}];
             }];
         } else {
             //NSLog(@"%@", [error.userInfo valueForKey:@"NSLocalizedDescription"]);

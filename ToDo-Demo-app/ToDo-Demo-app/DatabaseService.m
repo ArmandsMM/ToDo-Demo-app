@@ -72,7 +72,7 @@
                                                                                  withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                                                                                      NSLog(@"downloaded Tasks: %@", snapshot);
                                                                                      [self saveTaskLocally:snapshot.value];
-                                                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"taskDownloadedAndSaved" object:nil];
+                                                                                     [self.downloadDelegate taskDownloaded];
                                                                                  }];
 }
 
@@ -88,23 +88,22 @@
 - (void) listenForTaskDataChangeFromFirebase {
     NSString *userID = [FIRAuth auth].currentUser.uid;
     //listen for added task
-    [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildAdded
-                                                                                      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                                                                                          //NSLog(@"added: %@", snapshot.value);
-                                                                                          if (snapshot != nil) {
-                                                                                              if (![self allreadyIsLocal:snapshot.value]) {
-                                                                                                  [self downloadTasks:snapshot];
+    if (userID != nil) {
+        [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildAdded
+                                                                                          withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                                              if (snapshot != nil) {
+                                                                                                  if (![self allreadyIsLocal:snapshot.value]) {
+                                                                                                      [self downloadTasks:snapshot];
+                                                                                                  }
                                                                                               }
-                                                                                          }
-                                                                                      }];
-    //listen for removed task
-    [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildRemoved
-                                                                                      withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                                                                                          //NSLog(@"removed: %@", snapshot);
-                                                                                          if (snapshot != nil) {
+                                                                                          }];
+        //listen for removed task
+        [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildRemoved
+                                                                                          withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {                                                                                              if (snapshot != nil) {
 
-                                                                                          }
-                                                                                      }];
+                                                                                              }
+                                                                                          }];
+    }
 }
 
 #pragma mark - local save/load
@@ -152,7 +151,6 @@
         NSData *data = [NSData dataWithContentsOfFile:filePath];
         NSDictionary *loadedData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         if ([loadedData objectForKey:@"tasks"] != nil) {
-            //NSLog(@"loaded tasks: %@", [loadedData objectForKey:@"tasks"]);
             return loadedData;
         }
     }

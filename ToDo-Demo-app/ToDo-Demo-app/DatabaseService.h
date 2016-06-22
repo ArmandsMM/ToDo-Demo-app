@@ -10,7 +10,15 @@
 @import Firebase;
 @import FirebaseDatabase;
 
+@protocol taskDownloadDelegate <NSObject>
+
+- (void) taskDownloaded;
+
+@end
+
 @interface DatabaseService : NSObject
+
+@property (nonatomic, strong) id <taskDownloadDelegate> downloadDelegate;
 
 @property (nonatomic, strong) FIRDatabaseReference *ref;
 
