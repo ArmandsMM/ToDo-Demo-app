@@ -108,10 +108,12 @@
 #pragma mark - UITextField delegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.containerView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.7];
+    self.containerView.backgroundColor = [[UIColor darkGrayColor] colorWithAlphaComponent:0.9];
     [UIView animateWithDuration:0.35 animations:^{
-        self.containerView.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.view.frame.size.height-textField.frame.size.height);
+//        self.containerView.frame = CGRectMake(0, 0, self.containerView.frame.size.width, self.view.frame.size.height-textField.frame.size.height);
+        self.containerView.frame = CGRectMake(0, self.view.frame.size.height * 0.1 - textField.frame.origin.y, self.containerView.frame.size.width, self.containerView.frame.size.height);
     }];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

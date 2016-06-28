@@ -120,7 +120,7 @@ alpha:1.0]
 - (void) prepareLoginViewWithCompletion:(void (^)(BOOL))success {
 
     if (![[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"login" bundle:[NSBundle mainBundle]];
         newVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
         [self.view addSubview:newVC.view];
         [self addChildViewController:newVC];

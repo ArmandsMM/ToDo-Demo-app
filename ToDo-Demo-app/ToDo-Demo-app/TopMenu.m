@@ -58,12 +58,12 @@ alpha:1.0]
 
 - (void) configureMenuButtonConstraints {
     self.menuButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[v0(30)]"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[v0(44)]"
                                                                  options:0
                                                                  metrics:nil
                                                                    views:@{@"v0":self.menuButton}]];
 
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(30)]"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v0(44)]"
                                                                  options:0
                                                                  metrics:nil
                                                                    views:@{@"v0":self.menuButton}]];
@@ -78,7 +78,7 @@ alpha:1.0]
 
 - (void) configureTopMenuTitleConstraints {
     self.topMenuTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-50-[v0]|"
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-64-[v0]|"
                                                                 options:0
                                                                 metrics:nil
                                                                   views:@{@"v0":self.topMenuTitle}]];
