@@ -53,17 +53,6 @@
 
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void) checkNotificationFromRegistration:(NSNotification *) note {
-    self.usernameTextField.text = [[note userInfo] valueForKey:@"email"];
-    self.passwordTextField.text = [[note userInfo] valueForKey:@"password"];
-
-    NSLog(@"%@ , %@", [[note userInfo] valueForKey:@"email"], [[note userInfo] valueForKey:@"password"]);
-}
-
 - (void) autoLogin {
     [self loginButtonTapped:nil];
 }
@@ -75,8 +64,10 @@
          if (!error) {
 
              KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
-                 [keychainItem setObject:self.passwordTextField.text forKey:(__bridge id)kSecValueData];
-                 [keychainItem setObject:self.usernameTextField.text forKey:(__bridge id)kSecAttrAccount];
+             [keychainItem setObject:self.passwordTextField.text forKey:(__bridge id)kSecValueData];
+             [keychainItem setObject:self.usernameTextField.text forKey:(__bridge id)kSecAttrAccount];
+
+//             [Configuration sharedInstance].user.password = self.passwordTextField.text;
 
              [self.view removeFromSuperview];
              [self removeFromParentViewController];

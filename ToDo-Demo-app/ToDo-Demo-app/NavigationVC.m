@@ -58,7 +58,8 @@
 - (void) addProfileImage {
     self.profileImageView = [UIImageView new];
     self.profileImageView.backgroundColor = [UIColor purpleColor];
-    [self.profileImageView setImage:[Configuration sharedInstance].profileImage];
+//    [self.profileImageView setImage:[Configuration sharedInstance].profileImage];
+    [self.profileImageView setImage:[Configuration sharedInstance].user.image];
     [self.view addSubview:self.profileImageView];
     [self configureProfileImageConstraints:self.profileImageView];
 

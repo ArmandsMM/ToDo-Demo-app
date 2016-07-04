@@ -8,6 +8,7 @@
 
 #import "DatabaseService.h"
 #import "Authenticator.h"
+#import "Configuration.h"
 
 @implementation DatabaseService
 
@@ -18,6 +19,16 @@
 
     }
     return self;
+}
+
+- (void) updateProfileWithNewUsername:(NSString *) newUsername {
+    [[[[self.ref child:@"user-profiles"] child:[FIRAuth auth].currentUser.uid] child:@"username"] setValue:newUsername];
+}
+- (void) updateProfileWithNewEmail:(NSString *) newEmail {
+    [[[[self.ref child:@"user-profiles"] child:[FIRAuth auth].currentUser.uid] child:@"email"] setValue:newEmail];
+}
+- (void) updateProfileWithNewBirthday:(NSString *) newBirthday {
+    [[[[self.ref child:@"user-profiles"] child:[FIRAuth auth].currentUser.uid] child:@"birthday"] setValue:newBirthday];
 }
 
 - (void) saveProfileDataToDatabaseWithUsername:(NSString *)username email:(NSString *)email birthday:(NSString *)birthday imagePath:(NSString *)path {
@@ -39,6 +50,7 @@
 }
 
 - (void)createNewTask:(NSString *)date taskTitle:(NSString *)title taskDescription:(NSString *)description time:(NSArray *)time place:(NSString *)place withUsers:(NSArray *)users withNotification:(NSNumber *)minutesBefore completion:(void (^)(BOOL))completionBlock {
+
     NSString *combinedUsers = [users componentsJoinedByString:@"-"];
 
     NSString *key = [[self.ref child:@"tasks"] childByAutoId].key;
@@ -80,8 +92,19 @@
 
 - (void) readUserDataOnce {
     NSString *userID = [FIRAuth auth].currentUser.uid;
+    if (userID == nil) {
+        return;
+    }
     [[[self.ref child:@"user-profiles"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         //NSLog(@"%@", snapshot.value[@"username"]);
+        if (snapshot != nil) {
+//            [self.userDelegate userDataDownloaded:snapshot];
+//            [Configuration sharedInstance].user.username = snapshot.value[@"username"];
+//            [Configuration sharedInstance].user.email = snapshot.value[@"email"];
+//            [Configuration sharedInstance].user.birthday = snapshot.value[@"birthday"];
+//            [Configuration sharedInstance].user.createdTaskIDs = [snapshot.value[@"created-tasks"] allValues];
+        }
+
     }];
 }
 
@@ -101,8 +124,19 @@
         [[[[self.ref child:@"user-profiles"] child:userID] child:@"created-tasks"] observeEventType:FIRDataEventTypeChildRemoved
                                                                                           withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {                                                                                              if (snapshot != nil) {
 
-                                                                                              }
+        }
                                                                                           }];
+
+        [[[self.ref child:@"user-profiles"] child:userID] observeEventType:FIRDataEventTypeValue
+                                                                 withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                                                                     if (snapshot != nil) {
+                                                                         [self.userDelegate userDataDownloaded:snapshot];
+//                                                                         [Configuration sharedInstance].user.username = snapshot.value[@"username"];
+//                                                                         [Configuration sharedInstance].user.email = snapshot.value[@"email"];
+//                                                                         [Configuration sharedInstance].user.birthday = snapshot.value[@"birthday"];
+//                                                                         [Configuration sharedInstance].user.createdTaskIDs = [snapshot.value[@"created-tasks"] allValues];
+                                                                     }
+                                                                 }];
     }
 }
 

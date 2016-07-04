@@ -34,9 +34,18 @@
     self.homeCollectionView.dataSource = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [Configuration sharedInstance].service.downloadDelegate = self;
+}
+
+- (void)awakeFromNib {
+//    [Configuration sharedInstance].service.downloadDelegate = self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    [Configuration sharedInstance].service.downloadDelegate = self;
+//    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 }
 

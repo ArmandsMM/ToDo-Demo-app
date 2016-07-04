@@ -29,18 +29,19 @@ alpha:1.0]
 
 @property BOOL didPressLogout;
 
+@property (nonatomic, strong) UIViewController *pageViewController;
+@property (nonatomic, strong) LogInVC *loginVC;
+
+@property (nonatomic, strong) HomeVC *homePage;
+
 @end
 
-@implementation MainTabbarVC {
-
-    UIViewController *newViewController;
-    LogInVC *newVC;
-}
+@implementation MainTabbarVC
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    if ([self checkForSavedKeychainCredentials] && !self.didPressLogout) {
-        [newVC autoLogin];
+    if ([self checkForSavedKeychainCredentials] && !self.didPressLogout && [FIRAuth auth].currentUser) {
+        [self.loginVC autoLogin];
     }
 }
 
@@ -104,9 +105,9 @@ alpha:1.0]
     [self prepareLoginViewWithCompletion:^(BOOL success) {
         if (!success) {
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-            newViewController = [sb instantiateViewControllerWithIdentifier:@"CreateVC"];
+            self.pageViewController = [sb instantiateViewControllerWithIdentifier:@"CreateVC"];
 
-            [self presentViewController:newViewController animated:YES completion:nil];
+            [self presentViewController:self.pageViewController animated:YES completion:nil];
         }
     }];
 }
@@ -121,10 +122,11 @@ alpha:1.0]
 
     if (![[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"login" bundle:[NSBundle mainBundle]];
-        newVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
-        [self.view addSubview:newVC.view];
-        [self addChildViewController:newVC];
-        [self configureLogInViewConstraints:newVC.view];
+
+        self.loginVC = [sb instantiateViewControllerWithIdentifier:@"LogInVC"];
+        [self.view addSubview:self.loginVC.view];
+        [self addChildViewController:self.loginVC];
+        [self configureLogInViewConstraints:self.loginVC.view];
 
         if (success != nil) {
             success(YES);
@@ -152,7 +154,7 @@ alpha:1.0]
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    
+
     __block id weakSelf = self;
     self.menu.navVC.navCollectionVC.didSelect = ^(NSString *data) {
         [weakSelf checkVCfromNavigation:data];
@@ -160,9 +162,9 @@ alpha:1.0]
 }
 
 - (void) checkVCfromNavigation:(NSString *) item {
-    if (newViewController) {
-        [newViewController.view removeFromSuperview];
-        [newViewController removeFromParentViewController];
+    if (self.pageViewController) {
+        [self.pageViewController.view removeFromSuperview];
+        [self.pageViewController removeFromParentViewController];
         self.menu.topMenuTitle.text = item;
     }
     if ([[Configuration sharedInstance].authenticator checkIfLoggedIn]) {
@@ -174,7 +176,7 @@ alpha:1.0]
                 [self updateTopMenuTitle];
             } else {
                 [self loadViewFromNavigation:itemIndex];
-                self.menu.topMenuTitle.text = item;
+//                self.menu.topMenuTitle.text = item;
             }
         }
     } else {
@@ -183,11 +185,22 @@ alpha:1.0]
 }
 
 - (void) loadViewFromNavigation:(NSInteger) itemIndex {
-    newViewController = [[Configuration sharedInstance].navigationViews objectAtIndex:itemIndex];
-    [self.view addSubview:newViewController.view];
-    [self addChildViewController:newViewController];
-    newViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self configureNewViewConstraints];
+    self.pageViewController = [[Configuration sharedInstance].navigationViews objectAtIndex:itemIndex];
+    if (itemIndex == 7) {
+        [self showSettingsFromNavigationVC:self.pageViewController];
+    } else {
+        [self.view addSubview:self.pageViewController.view];
+        [self addChildViewController:self.pageViewController];
+        self.pageViewController.view.translatesAutoresizingMaskIntoConstraints = NO;
+        [self configureNewViewConstraints];
+    }
+}
+
+- (void) showSettingsFromNavigationVC:(UIViewController *) settingsVC {
+    settingsVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    settingsVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:settingsVC animated:YES completion:^{
+    }];
 }
 
 - (void) updateTopMenuTitle {
@@ -219,31 +232,31 @@ alpha:1.0]
 }
 
 - (void)didDismissNavigation {
-    //NSLog(@"dismiss delegate working");
+    NSLog(@"dismiss delegate working");
 }
 
 #pragma mark - Constraints
 
 - (void) configureNewViewConstraints {
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:newViewController.view
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pageViewController.view
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:newViewController.view
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pageViewController.view
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:newViewController.view
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pageViewController.view
                                                           attribute:NSLayoutAttributeBottom
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0 constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:newViewController.view
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.pageViewController.view
                                                          attribute:NSLayoutAttributeHeight
                                                          relatedBy:NSLayoutRelationEqual
                                                             toItem:self.view
@@ -311,22 +324,47 @@ alpha:1.0]
 - (BOOL)didLogout {
     NSLog(@"did logout delegate");
     self.didPressLogout = YES;
+    [self clearKeyChainItems];
     [[Configuration sharedInstance].service deleteAllLocalTasks];
+
     [self prepareLoginViewWithCompletion:nil];
     return YES;
 }
 
 - (BOOL)didLogin {
     NSLog(@"did login delegate");
-    self.selectedIndex = 0;
-    self.selectedIndex = 2;
-    if (newVC) {
-        [newVC.view removeFromSuperview];
-        [newVC removeFromParentViewController];
+
+    if (self.pageViewController) {
+        [self.pageViewController.view removeFromSuperview];
+        [self.pageViewController removeFromParentViewController];
     }
+
+    if (self.loginVC) {
+        [self.loginVC.view removeFromSuperview];
+        [self.loginVC removeFromParentViewController];
+    }
+    self.selectedIndex = 2;
     self.menu.navVC.logOutbutton.hidden = NO;
     [self setupProfileImageAndFirebaseListeners];
+
+    NSLog(@"%@", self.selectedViewController.description);
+    if ([self.selectedViewController isKindOfClass:[HomeVC class]]) {
+//        [Configuration sharedInstance].service.downloadDelegate = (HomeVC *) self.selectedViewController;
+        [Configuration sharedInstance].service.downloadDelegate = [self.viewControllers objectAtIndex:2];
+    }
+
     return YES;
+}
+
+- (void) clearKeyChainItems {
+    KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
+    if ([keychainItem objectForKey:(__bridge id)kSecAttrAccount] && [keychainItem objectForKey:(__bridge id)kSecValueData]) {
+
+//        [keychainItem delete:[keychainItem objectForKey:(__bridge id)kSecAttrAccount]];
+//        [keychainItem delete:[keychainItem objectForKey:(__bridge id)kSecValueData]];
+        [keychainItem resetKeychainItem];
+
+    }
 }
 
 - (void) setupProfileImageAndFirebaseListeners {

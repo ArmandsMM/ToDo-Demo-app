@@ -73,14 +73,8 @@
             NSString *imagePath = [NSString stringWithFormat:@"%@/profile-image.jpg", [FIRAuth auth].currentUser.uid];
             [service saveProfileDataToDatabaseWithUsername:self.usernameTextField.text email:self.emailTextField.text birthday:self.birthdayTextField.text imagePath:imagePath];
 
-            [self dismissViewControllerAnimated:YES completion:^{
-//                [[NSNotificationCenter defaultCenter] postNotificationName:@"didConnect"
-//                                                                    object:nil
-//                                                                  userInfo:@{@"email":self.emailTextField.text,
-//                                                                             @"password":self.passwordTextField.text}];
-            }];
+            [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            //NSLog(@"%@", [error.userInfo valueForKey:@"NSLocalizedDescription"]);
             [self showAlert:[error.userInfo valueForKey:@"NSLocalizedDescription"]];
         }
         self.activityIndicator.hidden = YES;
@@ -270,14 +264,5 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

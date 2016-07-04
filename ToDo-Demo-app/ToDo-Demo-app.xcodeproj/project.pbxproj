@@ -21,6 +21,7 @@
 		C770A10B1D229B1400A1FF24 /* SettingsTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C770A10A1D229B1400A1FF24 /* SettingsTheme.m */; };
 		C770A10E1D229BEC00A1FF24 /* SettingsSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C770A10D1D229BEC00A1FF24 /* SettingsSupport.m */; };
 		C770A1111D229C0400A1FF24 /* SettingsPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = C770A1101D229C0400A1FF24 /* SettingsPrivacy.m */; };
+		C770A1141D23AC9E00A1FF24 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C770A1131D23AC9E00A1FF24 /* User.m */; };
 		C79380671D018BCB00665555 /* Authenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380661D018BCB00665555 /* Authenticator.m */; };
 		C793806A1D019CA400665555 /* LogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C79380691D019CA400665555 /* LogInVC.m */; };
 		C7A922DB1D09961200BD0178 /* RegistrationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7A922DA1D09961200BD0178 /* RegistrationVC.m */; };
@@ -75,6 +76,8 @@
 		C770A10D1D229BEC00A1FF24 /* SettingsSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsSupport.m; sourceTree = "<group>"; };
 		C770A10F1D229C0400A1FF24 /* SettingsPrivacy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsPrivacy.h; sourceTree = "<group>"; };
 		C770A1101D229C0400A1FF24 /* SettingsPrivacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsPrivacy.m; sourceTree = "<group>"; };
+		C770A1121D23AC9E00A1FF24 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		C770A1131D23AC9E00A1FF24 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C79380651D018BCB00665555 /* Authenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authenticator.h; sourceTree = "<group>"; };
 		C79380661D018BCB00665555 /* Authenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authenticator.m; sourceTree = "<group>"; };
 		C79380681D019CA400665555 /* LogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInVC.h; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 		C7EAD86B1CFC28EF0085CFF4 /* ToDo-Demo-app */ = {
 			isa = PBXGroup;
 			children = (
+				C770A1121D23AC9E00A1FF24 /* User.h */,
+				C770A1131D23AC9E00A1FF24 /* User.m */,
 				C7D0B5601D0028830023A256 /* Configuration.h */,
 				C7D0B5611D0028830023A256 /* Configuration.m */,
 				C7D0B5341CFC6BEC0023A256 /* MainTabbarVC.h */,
@@ -421,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C770A1141D23AC9E00A1FF24 /* User.m in Sources */,
 				C7D0B5651D004FC90023A256 /* ListsVC.m in Sources */,
 				C7D0B53F1CFEE71D0023A256 /* NavigationCollectionVC.m in Sources */,
 				C7D0B5391CFEB6EA0023A256 /* TopMenu.m in Sources */,

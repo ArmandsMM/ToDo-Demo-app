@@ -41,14 +41,20 @@
                           @"Privacy"];
 }
 
+- (IBAction)showNavigationTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
+
 - (IBAction)logOutTapped:(id)sender {
     NSLog(@"log out tapped");
     [[Configuration sharedInstance].authenticator logOutWithCompletion:^(NSError *error) {
         if (error) {
             NSLog(@"%@", error.localizedDescription);
         } else {
-            [self removeFromParentViewController];
-            [self.view removeFromSuperview];
+//            [self removeFromParentViewController];
+//            [self.view removeFromSuperview];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
