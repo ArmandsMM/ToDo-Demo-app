@@ -86,5 +86,110 @@
     }
 }
 
+- (void) reauthenticateUserWithEmail:(NSString *) email password:(NSString *) password completion: (void (^)(NSError * error))completionBlock {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    FIRAuthCredential *credential = [FIREmailPasswordAuthProvider credentialWithEmail:email
+                                                                             password:password];
+
+    [user reauthenticateWithCredential:credential completion:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"<Authenticator> %@", error.localizedDescription);
+            if (completionBlock != nil) {
+                completionBlock(error);
+            }
+        } else {
+            NSLog(@"<Authenticator> user reauthenticated");
+            if (completionBlock !=nil) {
+                completionBlock(nil);
+            }
+        }
+    }];
+}
+
+- (void) deleteUserFromFireBaseDB {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [user deleteWithCompletion:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"<Authenticator> user deletion failed %@", error.localizedDescription);
+//            [self reauthenticateUser:^(NSError *error) {
+//                if (!error) {
+//                    [self deleteUserFromFireBaseDB];
+//                    NSLog(@"<Authenticator> user deleted.");
+//                }
+//            }];
+        } else {
+            NSLog(@"<Authenticator> user deleted.");
+        }
+    }];
+}
+
+- (void) sendPasswordResetEmail:(NSString *) email {
+    [[FIRAuth auth] sendPasswordResetWithEmail:email completion:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"<Authenticator> password reset email sending failed. %@", error.localizedDescription);
+        } else {
+            NSLog(@"<Authenticator> password reset email sent.");
+        }
+    }];
+}
+
+- (void) changeUsersPassword:(NSString *) newPassword {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    [user updatePassword:newPassword completion:^(NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"<Authenticator> %@", error.localizedDescription);
+//            [self reauthenticateUser:^(NSError *error) {
+//                if (!error) {
+//                    [self changeUsersPassword:newPassword];
+//                    NSLog(@"<Authenticator> password changed.");
+//                }
+//            }];
+        } else {
+            NSLog(@"<Authenticator> password changed.");
+        }
+    }];
+}
+
+- (void) changeUsersEmail:(NSString *) newEmail oldEmail:(NSString *) oldEmail password:(NSString *) password completion:(void (^)(NSError * error))completionBlock {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    if (user) {
+        [user updateEmail:newEmail completion:^(NSError * _Nullable error) {
+            if (!error) {
+                NSLog(@"<Authenticator> change email succes. first try.");
+                if (completionBlock!=nil) {
+                    completionBlock(nil);
+                }
+            } else {
+                NSLog(@"<Authenticator> %@", error.localizedDescription);
+                [self reauthenticateUserWithEmail:oldEmail password:password completion:^(NSError *error) {
+                    if (!error) {
+                        FIRUser *user = [FIRAuth auth].currentUser;
+                        [user updateEmail:newEmail completion:^(NSError * _Nullable error) {
+                            if (error) {
+                                NSLog(@"<Authenticator> %@", error.localizedDescription);
+                                if (completionBlock!=nil) {
+                                    completionBlock(error);
+                                }
+                            } else {
+                                NSLog(@"<Authenticator> email changed");
+                                if (completionBlock!=nil) {
+                                    completionBlock(nil);
+                                }
+                            }
+                        }];
+                    } else {
+                        NSLog(@"<Authenticator> %@", error.localizedDescription);
+                        if (completionBlock!=nil) {
+                            completionBlock(error);
+                        }
+                    }
+                }];
+            }
+        }];
+    } else {
+        NSLog(@"<Authenticator> %@", @"user is nil");
+        return;
+    }
+}
 
 @end

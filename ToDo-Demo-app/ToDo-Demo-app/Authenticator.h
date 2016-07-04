@@ -25,4 +25,9 @@
 
 +(void) createUser:(NSString *) email andPassword:(NSString *) password completion:(void (^)(NSError *error))completionBlock ;
 
+- (void) reauthenticateUserWithEmail:(NSString *) email password:(NSString *) password completion: (void (^)(NSError * error))completionBlock;
+- (void) deleteUserFromFireBaseDB;
+- (void) sendPasswordResetEmail:(NSString *) email;
+- (void) changeUsersPassword:(NSString *) newPassword;
+- (void) changeUsersEmail:(NSString *) newEmail oldEmail:(NSString *) oldEmail password:(NSString *) password completion:(void (^)(NSError * error))completionBlock;
 @end

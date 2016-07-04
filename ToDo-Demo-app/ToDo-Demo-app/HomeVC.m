@@ -27,9 +27,6 @@
     [super viewDidLoad];
     [self setupBackgroundColorsForViews];
     self.date = [NSDate date];
-
-//    DatabaseService *service = [DatabaseService new];
-//    service.downloadDelegate = self;
 //    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 
@@ -37,9 +34,18 @@
     self.homeCollectionView.dataSource = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [Configuration sharedInstance].service.downloadDelegate = self;
+}
+
+- (void)awakeFromNib {
+//    [Configuration sharedInstance].service.downloadDelegate = self;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
-    [Configuration sharedInstance].service.downloadDelegate = self;
+//    [Configuration sharedInstance].service.downloadDelegate = self;
     [self reloadLocalTasks];
 }
 
@@ -109,16 +115,6 @@
     [self updateTaskCountLabel];
     [self.homeCollectionView reloadData];
 }
-
-//- (NSArray *) refreshLocalTasks {
-//    NSDictionary *refreshedDict = [[Configuration sharedInstance].service loadLocalTasks];
-//    NSMutableArray *tempTaskArray= [NSMutableArray new];
-//    for (NSDictionary* item in [refreshedDict objectForKey:@"tasks"]) {
-//        [tempTaskArray addObject:item];
-//    }
-//
-//    return [self pickTasks:tempTaskArray ForDate:self.date];
-//}
 
 - (NSArray *) refreshLocalTasks {
     NSArray *refreshedDict = [[Configuration sharedInstance].service loadLocalTasksForUser:[FIRAuth auth].currentUser.uid];

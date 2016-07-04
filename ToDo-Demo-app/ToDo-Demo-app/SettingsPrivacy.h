@@ -1,13 +1,13 @@
 //
-//  SettingsVC.h
+//  SettingsPrivacy.h
 //  ToDo-Demo-app
 //
-//  Created by Mikanovskis, Armands on 6/2/16.
+//  Created by Mikanovskis, Armands on 6/28/16.
 //  Copyright © 2016 Mikanovskis, Armands. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsVC : UIViewController
+@interface SettingsPrivacy : UIViewController
 
 @end

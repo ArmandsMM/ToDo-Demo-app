@@ -20,7 +20,9 @@
 #import "TimelineVC.h"
 #import "SettingsVC.h"
 
-@interface Configuration : NSObject
+#import "User.h"
+
+@interface Configuration : NSObject <userDataDelegate>
 
 @property (nonatomic, strong) NSArray *tabbarItems;
 @property (nonatomic, strong) NSArray *navigationItems;
@@ -39,6 +41,9 @@
 @property (nonatomic, strong) ProfileVC *profile;
 @property (nonatomic, strong) TimelineVC *timeline;
 @property (nonatomic, strong) SettingsVC *settings;
+@property (nonatomic, strong) UINavigationController *settingsNav;
+
+@property (nonatomic, strong) User *user;
 
 + (instancetype)sharedInstance;
 

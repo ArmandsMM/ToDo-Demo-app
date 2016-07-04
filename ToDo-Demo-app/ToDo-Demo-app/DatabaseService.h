@@ -16,14 +16,19 @@
 
 @end
 
+@protocol userDataDelegate <NSObject>
+
+- (void) userDataDownloaded:(FIRDataSnapshot *) userDict;
+
+@end
+
 @interface DatabaseService : NSObject
 
 @property (nonatomic, strong) id <taskDownloadDelegate> downloadDelegate;
-
+@property (nonatomic, strong) id <userDataDelegate> userDelegate;
 @property (nonatomic, strong) FIRDatabaseReference *ref;
 
 - (void) saveProfileDataToDatabaseWithUsername:(NSString *) username email:(NSString *) email birthday:(NSString *) birthday imagePath:(NSString *) path;
-
 - (void) createNewTask:(NSString *) date taskTitle:(NSString *) title taskDescription:(NSString *) description time:(NSArray *) time place:(NSString *) place  withUsers:(NSArray *) users withNotification:(NSNumber *) minutesBefore completion:(void (^)(BOOL success))completionBlock;
 
 - (void) readUserDataOnce;
@@ -33,5 +38,9 @@
 - (NSArray *) loadLocalTasksForUser:(NSString *) userID;
 
 - (void) deleteAllLocalTasks;
+
+- (void) updateProfileWithNewUsername:(NSString *) newUsername;
+- (void) updateProfileWithNewEmail:(NSString *) newEmail;
+- (void) updateProfileWithNewBirthday:(NSString *) newBirthday;
 
 @end
