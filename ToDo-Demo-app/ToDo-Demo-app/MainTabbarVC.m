@@ -144,6 +144,7 @@ alpha:1.0]
         NSString *emailText = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
         NSString *passwordText = [keychainItem objectForKey:(__bridge id)kSecValueData];
         if (emailText != nil && passwordText != nil) {
+            [Configuration sharedInstance].user.password = passwordText;
             return YES;
         }
     }
@@ -347,9 +348,7 @@ alpha:1.0]
     self.menu.navVC.logOutbutton.hidden = NO;
     [self setupProfileImageAndFirebaseListeners];
 
-    NSLog(@"%@", self.selectedViewController.description);
     if ([self.selectedViewController isKindOfClass:[HomeVC class]]) {
-//        [Configuration sharedInstance].service.downloadDelegate = (HomeVC *) self.selectedViewController;
         [Configuration sharedInstance].service.downloadDelegate = [self.viewControllers objectAtIndex:2];
     }
 
@@ -359,11 +358,7 @@ alpha:1.0]
 - (void) clearKeyChainItems {
     KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
     if ([keychainItem objectForKey:(__bridge id)kSecAttrAccount] && [keychainItem objectForKey:(__bridge id)kSecValueData]) {
-
-//        [keychainItem delete:[keychainItem objectForKey:(__bridge id)kSecAttrAccount]];
-//        [keychainItem delete:[keychainItem objectForKey:(__bridge id)kSecValueData]];
         [keychainItem resetKeychainItem];
-
     }
 }
 
