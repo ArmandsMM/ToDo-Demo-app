@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsGeneral : UIViewController
+@interface SettingsGeneral : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

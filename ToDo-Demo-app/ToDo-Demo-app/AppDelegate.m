@@ -20,7 +20,28 @@
     // Override point for customization after application launch.
 
     [[Configuration sharedInstance].authenticator configFirebase];
+
+    [[Configuration sharedInstance].localNotifications setupLocalNotifications];
+
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    if (application.applicationState == UIApplicationStateActive) {
+        // inside
+        [self.window.rootViewController presentViewController:[[Configuration sharedInstance].localNotifications alertUserForAction:notification]
+                                                     animated:YES
+                                                   completion:^{
+                                                       //
+        }];
+    } else {
+        // outside
+        [[Configuration sharedInstance].localNotifications takeActionWithLocalNotification:notification];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

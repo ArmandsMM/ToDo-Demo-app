@@ -18,6 +18,6 @@
 @property (nonatomic, strong) FIRStorageReference *imagesFolderRef;
 
 - (void) uploadImage:(NSData *) imageData forUser:(NSString *) user;
-- (UIImage *) downloadImageForUser:(NSString *) user;
+//- (UIImage *) downloadImageForUser:(NSString *) user;
 - (void) downloadProfileImage:(void (^)(UIImage *image)) completionBlock;
 @end

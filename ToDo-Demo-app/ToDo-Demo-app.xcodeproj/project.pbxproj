@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D47CF8EAB31808ED7ADBEBD /* libPods-ToDo-Demo-app.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */; };
+		C70C5C541D2BD0D8003EC715 /* LocalNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = C70C5C531D2BD0D8003EC715 /* LocalNotifications.m */; };
 		C71569281D1969180099B9D0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C71569271D1969180099B9D0 /* Security.framework */; };
 		C715692B1D1969580099B9D0 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = C715692A1D1969580099B9D0 /* KeychainItemWrapper.m */; };
 		C73B55221D0E9F4D0031E1D5 /* StorageService.m in Sources */ = {isa = PBXBuildFile; fileRef = C73B55211D0E9F4D0031E1D5 /* StorageService.m */; };
@@ -53,6 +54,8 @@
 		2AB82299EB03BCD4CE6A58B6 /* Pods-ToDo-Demo-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.release.xcconfig"; sourceTree = "<group>"; };
 		44A2FC9AEDEB7BB0A5507672 /* libPods-ToDo-Demo-app.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDo-Demo-app.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		563E5D9D78D037DDB5D00D06 /* Pods-ToDo-Demo-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDo-Demo-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDo-Demo-app/Pods-ToDo-Demo-app.debug.xcconfig"; sourceTree = "<group>"; };
+		C70C5C521D2BD0D8003EC715 /* LocalNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotifications.h; sourceTree = "<group>"; };
+		C70C5C531D2BD0D8003EC715 /* LocalNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalNotifications.m; sourceTree = "<group>"; };
 		C71569271D1969180099B9D0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C71569291D1969580099B9D0 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
 		C715692A1D1969580099B9D0 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				C7EAD86F1CFC28EF0085CFF4 /* AppDelegate.h */,
 				C7EAD8701CFC28EF0085CFF4 /* AppDelegate.m */,
 				C7EAD86D1CFC28EF0085CFF4 /* main.m */,
+				C70C5C521D2BD0D8003EC715 /* LocalNotifications.h */,
+				C70C5C531D2BD0D8003EC715 /* LocalNotifications.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				C7A922DE1D0AE21000BD0178 /* DatabaseService.m in Sources */,
 				C79380671D018BCB00665555 /* Authenticator.m in Sources */,
 				C7D0B54C1D0026C50023A256 /* CalendarVC.m in Sources */,
+				C70C5C541D2BD0D8003EC715 /* LocalNotifications.m in Sources */,
 				C7EAD8711CFC28EF0085CFF4 /* AppDelegate.m in Sources */,
 				C7D0B5421CFEF10F0023A256 /* NavigationCollectionViewCell.m in Sources */,
 				C73B55291D11826B0031E1D5 /* HomeCollectionViewCell.m in Sources */,

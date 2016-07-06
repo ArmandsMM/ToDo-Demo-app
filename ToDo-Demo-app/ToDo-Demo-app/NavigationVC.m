@@ -35,6 +35,11 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    self.profileImageView.image = [Configuration sharedInstance].user.image;
+}
+
 - (void) addLogOutButton {
     self.logOutbutton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.logOutbutton setImage:[UIImage imageNamed:@"log-out.png"] forState:UIControlStateNormal];

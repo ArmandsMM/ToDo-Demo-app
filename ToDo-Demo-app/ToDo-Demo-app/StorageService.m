@@ -38,24 +38,24 @@
 
 }
 
-- (UIImage *)downloadImageForUser:(NSString *)user {
-    __block UIImage *image = [UIImage new];
-    FIRStorageReference *userProfileImageRef = [self.storageReference child:[NSString stringWithFormat:@"%@/profile-image.jpg", user]];
-    
-    [userProfileImageRef dataWithMaxSize:1*1024*1024
-                              completion:^(NSData * _Nullable data, NSError * _Nullable error) {
-                                  if (error != nil) {
-                                      NSLog(@"<StorageService> %@", error.localizedDescription);
-                                  } else {
-                                      image = [UIImage imageWithData:data];
-                                  }
-                              }];
-    return image;
-
-}
+//- (UIImage *)downloadImageForUser:(NSString *)user {
+//    __block UIImage *image = [UIImage new];
+//    FIRStorageReference *userProfileImageRef = [self.storageReference child:[NSString stringWithFormat:@"%@/profile-image.jpg", user]];
+//    
+//    [userProfileImageRef dataWithMaxSize:1*1024*1024
+//                              completion:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                                  if (error != nil) {
+//                                      NSLog(@"<StorageService> %@", error.localizedDescription);
+//                                  } else {
+//                                      image = [UIImage imageWithData:data];
+//                                  }
+//                              }];
+//    return image;
+//
+//}
 
 - (void) downloadProfileImage:(void (^)(UIImage *image))completionBlock {
-    [[[[self.storageReference child:@"images"] child:[FIRAuth auth].currentUser.uid] child:@"profile-image.jpg"] dataWithMaxSize:1*1024*1024 completion:^(NSData * _Nullable data, NSError * _Nullable error) {
+    [[[[self.storageReference child:@"images"] child:[FIRAuth auth].currentUser.uid] child:@"profile-image.jpg"] dataWithMaxSize:2*1024*1024 completion:^(NSData * _Nullable data, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"storage : %@", error.localizedDescription);
         } else {

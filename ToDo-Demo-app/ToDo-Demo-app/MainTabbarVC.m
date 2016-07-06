@@ -23,7 +23,6 @@ alpha:1.0]
 @interface MainTabbarVC()
 
 @property (nonatomic, strong) TopMenu *menu;
-//@property (nonatomic, strong) Configuration *config;
 @property (nonatomic, strong) UIButton *createNewButton;
 @property (nonatomic, strong) NavigationVC *navVC;
 
@@ -31,9 +30,7 @@ alpha:1.0]
 
 @property (nonatomic, strong) UIViewController *pageViewController;
 @property (nonatomic, strong) LogInVC *loginVC;
-
 @property (nonatomic, strong) HomeVC *homePage;
-
 @end
 
 @implementation MainTabbarVC
@@ -367,8 +364,8 @@ alpha:1.0]
     StorageService *storage = [StorageService new];
     [storage downloadProfileImage:^(UIImage *image) {
         if (image) {
-            [Configuration sharedInstance].profileImage = image;
-            self.menu.navVC.profileImageView.image = image;
+            [Configuration sharedInstance].user.image = image;
+            self.menu.navVC.profileImageView.image = [Configuration sharedInstance].user.image;
         }
     }];
 

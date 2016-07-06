@@ -342,16 +342,31 @@
                                             <action selector="updateButtonTapped:" destination="6RP-33-4s5" eventType="touchUpInside" id="XmW-Rj-yoE"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="kIX-fg-epw">
+                                        <rect key="frame" x="131" y="0.0" width="58" height="58"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.29042374524250408" green="0.28270942424142081" blue="0.32273166478129711" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="WSc-5D-6Oq" firstAttribute="height" secondItem="YdB-nZ-9Ap" secondAttribute="height" id="Db6-bm-SZs"/>
+                                    <constraint firstItem="kIX-fg-epw" firstAttribute="centerX" secondItem="WSc-5D-6Oq" secondAttribute="centerX" id="GBX-dF-nup"/>
+                                    <constraint firstItem="kIX-fg-epw" firstAttribute="centerY" secondItem="WSc-5D-6Oq" secondAttribute="centerY" id="HNA-YW-R05"/>
+                                    <constraint firstItem="kIX-fg-epw" firstAttribute="width" secondItem="WSc-5D-6Oq" secondAttribute="width" id="ZZG-JX-QUn"/>
                                     <constraint firstItem="WSc-5D-6Oq" firstAttribute="centerY" secondItem="YdB-nZ-9Ap" secondAttribute="centerY" id="eZC-op-wxE"/>
                                     <constraint firstItem="WSc-5D-6Oq" firstAttribute="centerX" secondItem="YdB-nZ-9Ap" secondAttribute="centerX" id="iqE-Hl-Bez"/>
+                                    <constraint firstItem="kIX-fg-epw" firstAttribute="height" secondItem="WSc-5D-6Oq" secondAttribute="height" id="sQM-Hx-AIu"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dad-wC-tSn">
+                                <rect key="frame" x="200" y="72" width="38" height="34"/>
+                                <state key="normal" image="add-photo"/>
+                                <connections>
+                                    <action selector="addPhotoWasTapped:" destination="6RP-33-4s5" eventType="touchUpInside" id="ymY-su-1vR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="dad-wC-tSn" firstAttribute="leading" secondItem="fWx-9L-3Zo" secondAttribute="trailing" constant="8" id="1B0-A6-sen"/>
                             <constraint firstItem="ZDI-vf-TwX" firstAttribute="leading" secondItem="1GU-JL-mys" secondAttribute="leading" id="20b-jT-FXc"/>
                             <constraint firstItem="H5a-S8-p3x" firstAttribute="top" secondItem="4yE-cH-Dqs" secondAttribute="bottom" constant="23" id="262-cY-LKe"/>
                             <constraint firstItem="ZDI-vf-TwX" firstAttribute="leading" secondItem="1GU-JL-mys" secondAttribute="leading" id="287-rk-6fP"/>
@@ -377,6 +392,7 @@
                             <constraint firstItem="AC4-3t-feh" firstAttribute="leading" secondItem="fMf-9P-ZPe" secondAttribute="leadingMargin" id="jDR-3B-ybQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kDU-jC-60y" secondAttribute="trailing" id="lQe-t8-FCw"/>
                             <constraint firstAttribute="trailing" secondItem="KDR-9U-0SA" secondAttribute="trailing" id="liV-sj-r6A"/>
+                            <constraint firstItem="dad-wC-tSn" firstAttribute="top" secondItem="fWx-9L-3Zo" secondAttribute="top" id="m1l-nD-w6f"/>
                             <constraint firstItem="4yE-cH-Dqs" firstAttribute="top" secondItem="AC4-3t-feh" secondAttribute="bottom" constant="8" id="mjb-D9-qlB"/>
                             <constraint firstItem="ZDI-vf-TwX" firstAttribute="top" secondItem="1GU-JL-mys" secondAttribute="bottom" constant="8" id="pps-YD-gI4"/>
                             <constraint firstAttribute="bottom" secondItem="YdB-nZ-9Ap" secondAttribute="bottom" id="t18-j2-mdq"/>
@@ -394,6 +410,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ONp-nO-jKI"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="kIX-fg-epw" id="RRz-kS-UX4"/>
                         <outlet property="birthdayTextfield" destination="ZDI-vf-TwX" id="eHN-c8-fq1"/>
                         <outlet property="emailTextfield" destination="kDU-jC-60y" id="iwf-mF-ELo"/>
                         <outlet property="updateButton" destination="WSc-5D-6Oq" id="pZB-cY-qkI"/>
@@ -513,6 +530,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add-photo" width="38" height="34"/>
         <image name="bg" width="750" height="1334"/>
         <image name="create-task-done" width="63" height="64"/>
         <image name="discard-create-new" width="24" height="24"/>

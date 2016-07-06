@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol notificationSwitchDelegate <NSObject>
+
+- (void) notificationSwitched:(BOOL) notifSwitch;
+
+@end
+
 @interface SettingsVC : UIViewController
+
+@property (nonatomic, strong) id <notificationSwitchDelegate> switchDelegate;
 
 @end

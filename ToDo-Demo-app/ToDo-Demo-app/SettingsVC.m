@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.profileImageView.image = [Configuration sharedInstance].profileImage;
+    self.profileImageView.image = [Configuration sharedInstance].user.image;
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 1.8;
     self.profileImageView.clipsToBounds = YES;
 
@@ -39,6 +39,8 @@
                           @"Theme",
                           @"Support",
                           @"Privacy"];
+    
+    self.switchDelegate = [Configuration sharedInstance].localNotifications;
 }
 
 - (IBAction)showNavigationTapped:(id)sender {
@@ -59,9 +61,24 @@
     }];
 }
 
+- (void) toggleSwitch {
+    if (self.switcher.on) {
+        [Configuration sharedInstance].localNotifications.notificationsIsSet = YES;
+        [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"notificationsIsSet"];
+        NSLog(@"local notification switch: ON");
+        [self.switchDelegate notificationSwitched:[Configuration sharedInstance].localNotifications.notificationsIsSet];
+    } else {
+        [Configuration sharedInstance].localNotifications.notificationsIsSet = NO;
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"notificationsIsSet"];
+        NSLog(@"local notification switch: OFF");
+        [self.switchDelegate notificationSwitched:[Configuration sharedInstance].localNotifications.notificationsIsSet];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:YES];
+    self.profileImageView.image = [Configuration sharedInstance].user.image;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -93,12 +110,15 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     if (indexPath.row == 1) {
         CGRect switchFrame = cell.detailTextLabel.frame;
-        switchFrame.origin.x = switchFrame.origin.x + cell.detailTextLabel.frame.size.width / 1;
+//        switchFrame.origin.x = switchFrame.origin.x + cell.detailTextLabel.frame.size.width / 1;
         if (!self.switcher) {
             self.switcher = [[UISwitch alloc] initWithFrame:switchFrame];
             [cell addSubview:self.switcher];
             self.switcher.thumbTintColor = [UIColor purpleColor];
             self.switcher.onTintColor = [[UIColor purpleColor] colorWithAlphaComponent:0.5];
+
+            [self.switcher addTarget:self action:@selector(toggleSwitch) forControlEvents:UIControlEventValueChanged];
+            self.switcher.on = [Configuration sharedInstance].localNotifications.notificationsIsSet;
         }
     }
     if (indexPath.row == 4) {

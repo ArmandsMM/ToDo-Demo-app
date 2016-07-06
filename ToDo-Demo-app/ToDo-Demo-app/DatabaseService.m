@@ -85,6 +85,7 @@
                                                                                      NSLog(@"downloaded Tasks: %@", snapshot);
                                                                                      [self saveTaskLocally:snapshot.value];
                                                                                      [self.downloadDelegate taskDownloaded];
+                                                                                     [self setLocalNotificationForTask:snapshot.value];
                                                                                  }];
 }
 
@@ -131,10 +132,6 @@
                                                                  withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                                                                      if (snapshot != nil) {
                                                                          [self.userDelegate userDataDownloaded:snapshot];
-//                                                                         [Configuration sharedInstance].user.username = snapshot.value[@"username"];
-//                                                                         [Configuration sharedInstance].user.email = snapshot.value[@"email"];
-//                                                                         [Configuration sharedInstance].user.birthday = snapshot.value[@"birthday"];
-//                                                                         [Configuration sharedInstance].user.createdTaskIDs = [snapshot.value[@"created-tasks"] allValues];
                                                                      }
                                                                  }];
     }
@@ -219,6 +216,24 @@
         NSLog(@"delete: %@", error.localizedDescription);
     } else {
         NSLog(@"deleted successifully");
+    }
+}
+
+#pragma mark - local notification
+
+- (void) setLocalNotificationForTask:(NSDictionary *) task {
+//    NSLog(@"<notif> %@", task);
+    NSDate *date = [[Configuration sharedInstance].localNotifications buildDateFromDateString:[task valueForKey:@"date"]
+                                                                                andTimeString:[task valueForKey:@"time-start"]];
+    NSDate *dateNow = [NSDate date];
+
+    NSLog(@"%f", [date timeIntervalSinceDate:dateNow]);
+
+    if ([date timeIntervalSinceDate:dateNow] > 0) {
+        [[Configuration sharedInstance].localNotifications activateLocalNotificationWithTitle:[task valueForKey:@"title"]
+                                                                                     bodyText:[task valueForKey:@"description"]
+                                                                                       taskID:[task valueForKey:@"task-id"]
+                                                                                 timeInterval:[date timeIntervalSinceDate:dateNow]];
     }
 }
 

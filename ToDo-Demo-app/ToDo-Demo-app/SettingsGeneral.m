@@ -20,16 +20,23 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailTextfield;
 @property (strong, nonatomic) IBOutlet UITextField *birthdayTextfield;
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property BOOL profileImageWasChanged;
+
 @end
 
 @implementation SettingsGeneral
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.activityIndicator.hidden = YES;
 
     self.userImageView.image = [Configuration sharedInstance].user.image;
     self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width/1.8;
     self.userImageView.clipsToBounds = YES;
+
+    self.profileImageWasChanged = NO;
 
     self.updateButton.layer.cornerRadius = self.updateButton.frame.size.width/1.8;
     self.updateButton.clipsToBounds = YES;
@@ -44,10 +51,12 @@
 
 - (IBAction)updateButtonTapped:(id)sender {
 
-    if (![self.usernameTextfield.text isEqualToString:@""] || self.usernameTextfield != nil) {
+    self.activityIndicator.hidden = NO;
+
+    if (self.usernameTextfield.text.length != 0) {
         [[Configuration sharedInstance].service updateProfileWithNewUsername:self.usernameTextfield.text];
     }
-    if (![self.emailTextfield.text isEqualToString:@""] || self.emailTextfield != nil) {
+    if (self.emailTextfield.text.length != 0) {
         [[Configuration sharedInstance].authenticator changeUsersEmail:self.emailTextfield.text
                                                               oldEmail:[FIRAuth auth].currentUser.email
                                                               password:[Configuration sharedInstance].user.password
@@ -63,70 +72,22 @@
                                                                 }
                                                             }];
     }
-    if (![self.birthdayTextfield.text isEqualToString:@""] || self.birthdayTextfield != nil) {
+    if (self.birthdayTextfield.text.length != 0) {
         [[Configuration sharedInstance].service updateProfileWithNewBirthday:self.birthdayTextfield.text];
     }
-}
+    if (self.profileImageWasChanged) {
+        [self uploadImageForProfile:self.userImageView.image];
+    }
 
-//#pragma mark - Alert
-//
-//- (void) setupAlertFor:(UILabel *) label {
-//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Change" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *done = [UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//
-//        if ([label.text isEqualToString:self.usernameTextLabel.text]) {
-//            [[Configuration sharedInstance].service updateProfileWithNewUsername:alertController.textFields.firstObject.text];
-//            label.text = alertController.textFields.firstObject.text;
-//        } else if ([label.text isEqualToString:self.emailTextLabel.text]) {
-//            [[Configuration sharedInstance].authenticator changeUsersEmail:alertController.textFields.firstObject.text
-//                                                                  oldEmail:[FIRAuth auth].currentUser.email
-//                                                                  password:[Configuration sharedInstance].user.password
-//                                                                completion:^(NSError *error) {
-//                                                                    if (!error) {
-//
-//                                                                        KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:@"TodoApp" accessGroup:nil];
-//                                                                        [keychainItem setObject:@"qwerty" forKey:(__bridge id)kSecValueData];
-//                                                                        [keychainItem setObject:self.emailTextLabel.text forKey:(__bridge id)kSecAttrAccount];
-//
-//                                                                        [[Configuration sharedInstance].service updateProfileWithNewEmail:alertController.textFields.firstObject.text];
-//                                                                        label.text = alertController.textFields.firstObject.text;
-//
-//                                                                        NSLog(@"%@", [FIRAuth auth].currentUser.email);
-//                                                                    }
-//                                                                }];
-//
-//        } else if ([label.text isEqualToString:self.birthdayTextLabel.text]) {
-//            [[Configuration sharedInstance].service updateProfileWithNewBirthday:alertController.textFields.firstObject.text];
-//            label.text = alertController.textFields.firstObject.text;
-//        }
-//    }];
-//
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//    }];
-//
-//    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-//        textField.placeholder = @"type new one";
-//    }];
-//
-//    [alertController addAction:done];
-//    [alertController addAction:cancel];
-//
-//    [self presentViewController:alertController animated:YES completion:nil];
-//}
-//
-//#pragma mark - Appear/Disappier
-//
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:YES];
-//    [self.navigationController setNavigationBarHidden:YES];
-//}
+    self.activityIndicator.hidden = YES;
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
-    self.updatebuttonview.hidden = YES;
+    if (!self.profileImageWasChanged) {
+        self.updatebuttonview.hidden = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -236,4 +197,81 @@
     }
 
 }
+
+#pragma mark - Photo
+
+- (IBAction)addPhotoWasTapped:(id)sender {
+    [self setupProfileAlert];
+}
+
+- (void) setupProfileAlert {
+    UIAlertController *profileAlertController = [UIAlertController alertControllerWithTitle:@"Select image" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *camera = [UIAlertAction actionWithTitle:@"Camera" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self handleCamera];
+    }];
+    UIAlertAction *gallery = [UIAlertAction actionWithTitle:@"Gallery" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self handleGallery];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [profileAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+
+
+    [profileAlertController addAction:camera];
+    [profileAlertController addAction:gallery];
+    [profileAlertController addAction:cancel];
+
+    [self presentViewController:profileAlertController animated:YES completion:nil];
+}
+
+- (void) handleCamera {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIAlertController *cameraAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"You don't have camera" preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [cameraAlert dismissViewControllerAnimated:YES completion:nil];
+        }];
+
+        [cameraAlert addAction:ok];
+        [self presentViewController:cameraAlert animated:YES completion:nil];
+    } else {
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.modalPresentationStyle = UIModalPresentationCurrentContext;
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+- (void) handleGallery {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - imagePickerController/navigation delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    NSData *imageData = UIImageJPEGRepresentation([info objectForKey:@"UIImagePickerControllerOriginalImage"], 0.01);
+    UIImage *image = [[UIImage alloc] initWithData:imageData];
+    self.userImageView.image = image;
+    [Configuration sharedInstance].user.image = image;
+
+    self.profileImageWasChanged = YES;
+    self.updatebuttonview.hidden = NO;
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void) uploadImageForProfile:(UIImage *) image {
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+
+    StorageService *storage = [StorageService new];
+    [storage uploadImage:imageData forUser:[FIRAuth auth].currentUser.uid];
+}
+
 @end

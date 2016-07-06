@@ -72,6 +72,14 @@
     return _authenticator;
 }
 
+- (LocalNotifications *) localNotifications {
+    if (!_localNotifications) {
+        _localNotifications = [LocalNotifications new];
+//        [_localNotifications activateLocalNotificationWithTitle:@"title" bodyText:@"body text" timeInterval:10];
+    }
+    return _localNotifications;
+}
+
 #pragma mark - USER
 
 - (User *) user {
@@ -88,7 +96,7 @@
     self.user.username = userSanpshot.value[@"username"];
     self.user.email = userSanpshot.value[@"email"];
     self.user.birthday = userSanpshot.value[@"birthday"];
-    self.user.image = [Configuration sharedInstance].profileImage;
+//    self.user.image = [Configuration sharedInstance].profileImage;
 
     self.user.createdTaskIDs = [userSanpshot.value[@"created-tasks"] allValues];
 }

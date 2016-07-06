@@ -21,6 +21,7 @@
 #import "SettingsVC.h"
 
 #import "User.h"
+#import "LocalNotifications.h"
 
 @interface Configuration : NSObject <userDataDelegate>
 
@@ -29,7 +30,7 @@
 @property (nonatomic, strong) NSArray *navigationViews;
 
 @property (nonatomic, strong) DatabaseService *service;
-@property (nonatomic, strong) UIImage *profileImage;
+//@property (nonatomic, strong) UIImage *profileImage;
 
 @property (nonatomic, strong) Authenticator *authenticator;
 
@@ -44,6 +45,7 @@
 @property (nonatomic, strong) UINavigationController *settingsNav;
 
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) LocalNotifications *localNotifications;
 
 + (instancetype)sharedInstance;
 
